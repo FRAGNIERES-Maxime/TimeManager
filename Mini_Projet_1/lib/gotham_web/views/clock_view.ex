@@ -12,6 +12,7 @@ defmodule CityWeb.ClockView do
 
   def render("clock.json", %{clock: clock}) do
     %{id: clock.id,
-      user_id: clock.user_id}
+      user_id: clock.user_id,
+      clock: clock.inserted_at  }
   end
 end
