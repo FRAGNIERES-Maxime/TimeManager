@@ -1,6 +1,7 @@
 defmodule CityWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :gotham
 
+  plug CORSPlug
   socket "/socket", CityWeb.UserSocket,
     websocket: true,
     longpoll: false

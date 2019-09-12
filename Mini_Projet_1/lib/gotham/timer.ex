@@ -21,6 +21,9 @@ defmodule City.Timer do
     Repo.all(WorkingTime)
   end
 
+  def list_workingtimes_by_id(id) do
+    Repo.all(from wt in WorkingTime, where: wt.user_id == 2)
+  end
   @doc """
   Gets a single working_time.
 

@@ -5,7 +5,6 @@ defmodule CityWeb.WorkingTimeController do
   alias City.Timer.WorkingTime
 
   alias City.Account
-  alias City.Account.User
 
   action_fallback CityWeb.FallbackController
 
@@ -14,9 +13,6 @@ defmodule CityWeb.WorkingTimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, id, %{"workingtime" => working_time_params}) do
-    :ok
-  end
 
   def createByUser(conn, %{"id" => id, "workingtime" => working_time_params}) do
     with {:ok, %WorkingTime{} = working_time} <- Timer.create_working_time(Account.get_user!(id), working_time_params) do
@@ -34,6 +30,11 @@ defmodule CityWeb.WorkingTimeController do
       |> put_resp_header("location", Routes.working_time_path(conn, :show, working_time))
       |> render("show.json", working_time: working_time)
     end
+  end
+
+  def getByUser(conn, %{"id" => id}) do
+    working_times = Timer.list_workingtimes_by_id(id)
+    render(conn, "index.json", workingtimes: working_times)
   end
 
   def show(conn, %{"id" => id}) do

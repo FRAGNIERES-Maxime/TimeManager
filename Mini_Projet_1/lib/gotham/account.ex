@@ -20,7 +20,7 @@ defmodule City.Account do
   def list_users(_params) do
     case _params["email"] do
     nil -> Repo.all(User)
-    email -> Repo.all(Ecto.Query.from(u in User, where:  like(u.email, ^("%#{email}%")) and like(u.email, ^("%#{_params["username"]}%")) ))
+    email -> Repo.all(Ecto.Query.from(u in User, where:  like(u.email, ^("%#{email}%")) and like(u.username, ^("%#{_params["username"]}%")) ))
     end
   end
 
