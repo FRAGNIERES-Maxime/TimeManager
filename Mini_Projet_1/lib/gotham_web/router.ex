@@ -14,5 +14,10 @@ defmodule CityWeb.Router do
     options   "/users", UserController, :options
     post "/workingtimes/:id", WorkingTimeController, :createByUser
     get "/workingtimes/:id", WorkingTimeController, :getByUser
+
+    post "/clocks/:id", ClockController, :createOrDelete
+
+    get "/clocks/:id", ClockController, :show
+
   end
 end
