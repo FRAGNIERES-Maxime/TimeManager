@@ -1,24 +1,22 @@
-FROM elixir:1.9.1
+# Use an official Elixir runtime as a parent image
+FROM elixir:latest
 
-RUN mix local.hex --force \
- && mix archive.install --force hex phx_new 1.4.9 \
- && apt-get update \
- && curl -sL https://deb.nodesource.com/setup_10.x | bash \
- && apt-get install -y apt-utils \
- && apt-get install -y nodejs \
- && apt-get install -y build-essential \
- && apt-get install -y inotify-tools \
- && mix local.rebar --force
+RUN apt-get update && \
+  apt-get install -y postgresql-client
 
-##ENV APP_HOME /app
-RUN mkdir -p /app
+# Create app directory and copy the Elixir projects into it
+RUN mkdir /app
 COPY . /app
 WORKDIR /app
 
+# Install hex package manager
+RUN mix local.hex --force
+
 RUN mix deps.get
-RUN mix ecto.create
-RUN mix ecto.migrate
 
-EXPOSE 4000
 
-CMD ["mix", "phx.server"]
+# Compile the project
+RUN mix local.rebar --force
+RUN mix do compile --force
+
+#RUN ["chmod", "+x", "/app/entrypoint.sh"]
