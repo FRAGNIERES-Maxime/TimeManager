@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    networks:
+      - api-tier
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  vue:
+    build: ./Mini_Projet_2/router-app
+    ports:
+      - "5000:80"
+    networks:
+      - vue-tier
+
+  api:
+    build: ./Mini_Projet_1
+    ports:
+      - "5001:80"
+      - "5858:5858"
+    networks:
+      - api-tier
+      - vue-tier
+
+networks:
+  vue-tier:
+
+  api-tier:
+
+volumes:
+  db-data:
