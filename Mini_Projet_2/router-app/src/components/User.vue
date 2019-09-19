@@ -33,7 +33,7 @@ export default {
       since: "",
       intervalclock: 0,
       list_work: []
-    
+
     }
   },
    watch: {
@@ -83,3 +83,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  #user {
+    margin-top: 2%;
+  }
+</style>
