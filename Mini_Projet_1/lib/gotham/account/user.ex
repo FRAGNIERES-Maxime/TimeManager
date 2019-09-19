@@ -6,6 +6,7 @@ defmodule City.Account.User do
     field :email, :string, null: false
     field :username, :string, null: false
 
+
     timestamps()
   end
 
