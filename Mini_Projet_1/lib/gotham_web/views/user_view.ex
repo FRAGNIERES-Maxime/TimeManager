@@ -2,6 +2,7 @@ defmodule CityWeb.UserView do
   use CityWeb, :view
   alias CityWeb.UserView
 
+
   def render("index.json", %{users: users}) do
     %{data: render_many(users, UserView, "user.json")}
   end
@@ -12,7 +13,15 @@ defmodule CityWeb.UserView do
 
   def render("user.json", %{user: user}) do
     %{id: user.id,
-      username: user.username,
-      email: user.email}
+      email: user.email,
+      password_hash: user.password_hash,
+      status: user.status,
+      username: user.username}
   end
+
+
+  def render("jwt.json", %{jwt: jwt}) do
+    %{jwt: jwt}
+  end
+
 end
