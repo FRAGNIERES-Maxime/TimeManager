@@ -1,7 +1,7 @@
 <template>
   <div id='user' class="container">
     <div>
-      <router-link id="btn-back" :to="{ name: 'users' }">Back to Users List</router-link>
+      <router-link id="btn-back" class="btn btn-dark" :to="{ name: 'users' }">Back to Users List</router-link>
     </div>
     <div class="row">
       <div id="identity" class="col-md-6">
@@ -23,6 +23,9 @@
             <select>
               <option>TEAM (Back a lié)</option>
             </select>
+          </div>
+          <div class="form-group">
+            <button id="submit" class="btn btn-dark" type="submit">Submit</button>
           </div>
         </form>
       </div>
@@ -140,15 +143,16 @@
 <style>
   #user {
     margin-top: 2%;
+    font-size: 24px;
+    font-max-size: 24px;
+  }
+
+  #submit {
+    font-size: 24px;
   }
 
   #btn-back {
-    color: #cccccc;
     font-size: 24px;
-    padding: 5px;
-    border-radius: 10px;
-    background-color: #1a00a8;
-    text-decoration: none;
   }
 
   #btn-back:hover {
@@ -156,8 +160,6 @@
   }
 
   #identity {
-    font-size: 24px;
-    font-max-size: 24px;
     padding: 20px;
   }
 
