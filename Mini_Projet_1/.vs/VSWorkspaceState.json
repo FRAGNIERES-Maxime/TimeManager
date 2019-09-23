@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\lib",
+    "\\lib\\gotham",
+    "\\lib\\gotham\\account",
+    "\\lib\\gotham\\cloakeur",
+    "\\lib\\gotham\\timer",
+    "\\priv",
+    "\\priv\\repo",
+    "\\priv\\repo\\migrations",
+    "\\test"
+  ],
+  "SelectedNode": "\\priv\\repo\\migrations\\20190910112530_create_users.exs",
+  "PreviewInSolutionExplorer": false
+}

@@ -50,7 +50,7 @@ export default {
     },
     methods: {
         getAllUsers() {
-            axios.get('http://localhost:4000/api/users?email=&username=' + this.q, {crossOrigine: true})
+            axios.get('http://localhost:9050/api/users?email=&username=' + this.q, {crossOrigine: true})
                 .then(result => {
                     this.list_user = result.data.data;
 

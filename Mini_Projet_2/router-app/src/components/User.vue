@@ -44,7 +44,7 @@ export default {
     },
   methods: {
       getUser(){
-        axios.get('http://localhost:4000/api/users/'+this.id_user, {crossOrigine: true})
+        axios.get('http://localhost:9050/api/users/'+this.id_user, {crossOrigine: true})
           .then(result => {
                 this.user = result.data.data;
                 this.getClock()
@@ -53,7 +53,7 @@ export default {
           })
       },
       getClock(){
-        axios.get('http://localhost:4000/api/clocks/'+this.id_user, {crossOrigine: true})
+        axios.get('http://localhost:9050/api/clocks/'+this.id_user, {crossOrigine: true})
         .then(res => {
           if (res.data.data){
             this.intervalclock = setInterval(() =>
@@ -68,13 +68,13 @@ export default {
         })
       },
       postClock(){
-        axios.post('http://localhost:4000/api/clocks/'+this.id_user, {crossOrigine: true})
+        axios.post('http://localhost:9050/api/clocks/'+this.id_user, {crossOrigine: true})
           .then(res => {
               this.getClock()
           })
       },
       getListWork(){
-        axios.get('http://localhost:4000/api/workingtimes/'+this.id_user, {crossOrigine: true})
+        axios.get('http://localhost:9050/api/workingtimes/'+this.id_user, {crossOrigine: true})
           .then(res => {
             this.list_work = res.data.data;
           })
