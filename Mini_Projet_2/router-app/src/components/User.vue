@@ -62,9 +62,7 @@
                 since: "",
                 intervalclock: 0,
                 list_work: [],
-
                 /* ------------------------------------ Chart ------------------------------------ */
-
                 /* --- Donut --- */
                 optionsDonut: {
                     colors: ["#25CC00", "#cccccc"],

@@ -1,21 +1,25 @@
 defmodule CityWeb.UserControllerTest do
   use CityWeb.ConnCase
 
-  alias City.Account
-  alias City.Account.User
+  alias City.Accounts
+  alias City.Accounts.User
 
   @create_attrs %{
     email: "some email",
+    password_hash: "some password_hash",
+    status: 42,
     username: "some username"
   }
   @update_attrs %{
     email: "some updated email",
+    password_hash: "some updated password_hash",
+    status: 43,
     username: "some updated username"
   }
-  @invalid_attrs %{email: nil, username: nil}
+  @invalid_attrs %{email: nil, password_hash: nil, status: nil, username: nil}
 
   def fixture(:user) do
-    {:ok, user} = Account.create_user(@create_attrs)
+    {:ok, user} = Accounts.create_user(@create_attrs)
     user
   end
 
@@ -40,6 +44,8 @@ defmodule CityWeb.UserControllerTest do
       assert %{
                "id" => id,
                "email" => "some email",
+               "password_hash" => "some password_hash",
+               "status" => 42,
                "username" => "some username"
              } = json_response(conn, 200)["data"]
     end
@@ -62,6 +68,8 @@ defmodule CityWeb.UserControllerTest do
       assert %{
                "id" => id,
                "email" => "some updated email",
+               "password_hash" => "some updated password_hash",
+               "status" => 43,
                "username" => "some updated username"
              } = json_response(conn, 200)["data"]
     end

@@ -1,6 +1,5 @@
 <template>
     <div id='users' class="container">
-        <!--<input type="text" placeholder="Search ..." v-model="q" v-on:keyup="getAllUsers()"/>-->
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
         <div class="col-sm-6 col-lg-4" v-for="u in list_user"
@@ -69,7 +68,7 @@ export default {
     },
   methods: {
       getAllUsers(){
-          axios.get('http://localhost:4000/api/users?email=&username='+this.q, {crossOrigine: true})
+          axios.get('http://localhost:9050/api/users?email=&username='+this.q, {crossOrigine: true})
           .then(result => {
                 this.list_user = result.data.data;
 
@@ -77,7 +76,7 @@ export default {
 
       },
       createUser(){
-          axios.post('http://localhost:4000/api/users', {user: this.new_user},  {crossOrigine: true})
+          axios.post('http://localhost:9050/api/users', {user: this.new_user},  {crossOrigine: true})
           .then((result) => {
                 this.error = "";
                 this.list_user = result.data.data;
@@ -89,7 +88,7 @@ export default {
       },
       deleteUser(id, event){
           if (event) event.preventDefault()
-          axios.delete('http://localhost:4000/api/users/'+id ,  {crossOrigine: true})
+          axios.delete('http://localhost:9050/api/users/'+id ,  {crossOrigine: true})
           .then(result => {
                 this.list_user = result.data.data;
                 this.getAllUsers()

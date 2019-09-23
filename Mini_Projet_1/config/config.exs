@@ -18,6 +18,12 @@ config :gotham, CityWeb.Endpoint,
   render_errors: [view: CityWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: City.PubSub, adapter: Phoenix.PubSub.PG2]
 
+  # Guardian config
+config :city, City.Guardian,
+issuer: "city",
+secret_key: "fditZUVz24UkPNRpXFxd1KUztgnphRnoYh4GeWZXxJMaCwx+8XC2VMwkqoiHnllu"
+
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
