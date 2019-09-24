@@ -10,8 +10,25 @@ defmodule CityWeb.UserController do
   action_fallback CityWeb.FallbackController
 
   def index(conn, _params) do
-    users = Accounts.list_users()
+
+    mana = Guardian.Plug.current_resource(conn)
+    if mana.status == 1 do
+      users = Accounts.get_list_by_manager(mana.id)
+    else
+      users = Accounts.list_users()
+    end
     render(conn, "index.json", users: users)
+  end
+
+  def userbymanager(conn, %{"id" => id}) do
+    login = Guardian.Plug.current_resource(conn)
+    if login.status == 2 do
+      users = Accounts.get_list_by_manager(String.to_integer(id))
+      render(conn, "index.json", users: users)
+    else
+      send(conn, :error);
+    end
+
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -19,6 +36,12 @@ defmodule CityWeb.UserController do
          {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
            conn |> render("jwt.json", jwt: token)
     end
+  end
+
+  def auth(conn, %{"id" => id})do
+    mana = Guardian.Plug.current_resource(conn)
+    user = Accounts.autorize(mana.id, id)
+    render(conn, "index.json", users: user)
   end
 
 

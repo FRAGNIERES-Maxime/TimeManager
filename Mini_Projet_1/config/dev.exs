@@ -3,8 +3,8 @@ use Mix.Config
 # Configure your database
 config :gotham, City.Repo,
   username: "postgres",
-  password: "root",
-  database: "projetapi",
+  password: "postgres",
+  database: "gotham_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :gotham, City.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :gotham, CityWeb.Endpoint,
-  http: [port: 9050],
+  http: [port: 5000],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

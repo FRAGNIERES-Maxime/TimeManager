@@ -5,9 +5,11 @@ defmodule City.Accounts do
 
   import Ecto.Query, warn: false
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
+  import Ecto.Type
 
   alias City.Repo
   alias City.Accounts.User
+  alias City.Accounts.Tmp
   alias City.Guardian
 
   @doc """
@@ -57,6 +59,24 @@ defmodule City.Accounts do
     |> Repo.insert()
   end
 
+  def get_list_by_manager(idmanager) do
+    qry =  "select * from list_user_manager($1)";
+    res = Ecto.Adapters.SQL.query!(Repo, qry, [idmanager])
+    cols = Enum.map res.columns, &(String.to_atom(&1))
+    roles = Enum.map res.rows, fn(row) ->
+    struct(User, Enum.zip(cols, row))
+    end
+  end
+
+  require Logger
+  def autorize(idmanager, id) do
+    qry = "select * from rigth_to_route($1, $2)"
+    res = Ecto.Adapters.SQL.query!(Repo, qry, [idmanager,  String.to_integer(id) ])
+    cols = Enum.map res.columns, &(String.to_atom(&1))
+    roles = Enum.map res.rows, fn(row) ->
+      struct(User, Enum.zip(cols, row))
+      end
+  end
   @doc """
   Updates a user.
 
