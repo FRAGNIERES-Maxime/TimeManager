@@ -31,7 +31,9 @@
 </script>
 
 <style>
-
+  .wrapper {
+    height: 100%;
+  }
 
   a {
     color: #92badd;

@@ -1,6 +1,5 @@
 <template>
     <div id='users' class="container">
-        <!--<input type="text" placeholder="Search ..." v-model="q" v-on:keyup="getAllUsers()"/>-->
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
         <div class="col-sm-6 col-lg-4" v-for="u in list_user"
@@ -21,8 +20,8 @@
             </div>
           </div>
         </div>
-        <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       </div>
+      <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
 
         <!--<div v-if="!list_user || !list_user.length">No User</div>
         <div>
@@ -109,7 +108,6 @@ export default {
 
   .container {
     background-color: #919191;
-    height: 100%;
     width: 100%;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
     padding: 50px;
