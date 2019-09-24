@@ -25,5 +25,4 @@
                         'Elixir.Guardian.Token.Verify','Elixir.Guardian.UUID',
                         'Elixir.Mix.Tasks.Guardian.Gen.Secret']},
               {registered,[]},
-              {vsn,"1.2.1"},
-              {extra_applications,[crypto,logger]}]}.
+              {vsn,"1.2.1"}]}.

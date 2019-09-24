@@ -8,5 +8,4 @@
                         'Elixir.Plug.Cowboy.Translator']},
               {registered,[]},
               {vsn,"2.1.0"},
-              {extra_applications,[logger]},
               {mod,{'Elixir.Plug.Cowboy',[]}}]}.

@@ -81,5 +81,4 @@
                         'Elixir.Mix.Tasks.Ecto.Gen.Repo']},
               {registered,[]},
               {vsn,"3.2.1"},
-              {extra_applications,[logger,crypto]},
               {mod,{'Elixir.Ecto.Application',[]}}]}.

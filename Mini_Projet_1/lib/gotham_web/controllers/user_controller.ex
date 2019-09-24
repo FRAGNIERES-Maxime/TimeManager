@@ -14,10 +14,12 @@ defmodule CityWeb.UserController do
     mana = Guardian.Plug.current_resource(conn)
     if mana.status == 1 do
       users = Accounts.get_list_by_manager(mana.id)
+      render(conn, "index.json", users: users)
     else
       users = Accounts.list_users()
+      render(conn, "index.json", users: users)
     end
-    render(conn, "index.json", users: users)
+
   end
 
   def userbymanager(conn, %{"id" => id}) do

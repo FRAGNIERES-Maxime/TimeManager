@@ -1,80 +1,51 @@
 <template>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-              aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <router-link :to="{ name: 'HelloWorld' }" class="navbar-brand text-light ">Time Manager</router-link>
-        <ul class="navbar-nav mr-auto">
-        <!--  <li class="nav-item">
-            <router-link :to="{ name: 'login' }" class="nav-link my-2">Sign in</router-link>
-          </li>
-          <li class="navbar-nav">
-            <router-link :to="{ name: 'newUser' }" class="nav-link my-2">Sign up</router-link>
-          </li>-->
-        </ul>
-        <li class="navbar-nav my-2">
-          <button class="btn btn-danger">Disconnect</button>
-        </li>
-
-        <!--<form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search ..." v-model="q"
-                 v-on:keyup="getAllUsers()"/>
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>-->
+  <div id='user' class="container">
+    <div>
+      <router-link id="btn-back" class="btn btn-dark" :to="{ name: 'users' }">Back to Users List</router-link>
+    </div>
+    <div class="row">
+      <div id="identity" class="col-md-6">
+        <form>
+          <div class="form-group">
+            <label>User:</label>
+            <input :placeholder=user.username>
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input :placeholder=user.email>
+          </div>
+          <div class="form-group">
+            <select>
+              <option>Manager</option>
+              <option>Admin</option>
+              <option>Employer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select>
+              <option>TEAM (Back a lié)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button id="submit" class="btn btn-dark" type="submit">Submit</button>
+          </div>
+        </form>
       </div>
-    </nav>
-    <div id='user' class="container">
-      <div>
-        <router-link id="btn-back" class="btn btn-dark" :to="{ name: 'users' }">Back to Users List</router-link>
-      </div>
-      <div class="row">
-        <div id="identity" class="col-md-6">
-          <form>
-            <div class="form-group">
-              <label>User:</label>
-              <input :placeholder=user.username>
-            </div>
-            <div class="form-group">
-              <label>Email:</label>
-              <input :placeholder=user.email>
-            </div>
-            <div class="form-group">
-              <select>
-                <option>Manager</option>
-                <option>Admin</option>
-                <option>Employer</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <select>
-                <option>TEAM (Back a lié)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <button id="submit" class="btn btn-dark" type="submit">Submit</button>
-            </div>
-          </form>
-        </div>
 
 
-        <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
-        <div class="col-md-5">
-          <apexchart type="pie" :options="optionsPie" :series="seriesPie"></apexchart>
-        </div>
-      </div>
-      <div id="charts">
-        <apexchart height="300" type="line" :options="optionsLine" :series="seriesLine"></apexchart>
-      </div>
       <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
-
-      <div v-for="w in list_work"
-           :key="w.id">
-        {{w}}
+      <div class="col-md-5">
+        <apexchart type="pie" :options="optionsPie" :series="seriesPie"></apexchart>
       </div>
+    </div>
+    <div id="charts">
+      <apexchart height="300" type="line" :options="optionsLine" :series="seriesLine"></apexchart>
+    </div>
+    <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
+
+    <div v-for="w in list_work"
+         :key="w.id">
+      {{w}}
     </div>
   </div>
 </template>
@@ -132,7 +103,7 @@
         },
         methods: {
             getUser() {
-                axios.get('http://localhost:4000/api/users/' + this.id_user, {crossOrigine: true})
+                axios.get('http://localhost:9050/api/users/' + this.id_user, {crossOrigine: true})
                     .then(result => {
                         this.user = result.data.data;
                         this.getClock()
@@ -141,7 +112,7 @@
                     })
             },
             getClock() {
-                axios.get('http://localhost:4000/api/clocks/' + this.id_user, {crossOrigine: true})
+                axios.get('http://localhost:9050/api/clocks/' + this.id_user, {crossOrigine: true})
                     .then(res => {
                         if (res.data.data) {
                             this.intervalclock = setInterval(() =>
@@ -155,13 +126,13 @@
                     })
             },
             postClock() {
-                axios.post('http://localhost:4000/api/clocks/' + this.id_user, {crossOrigine: true})
+                axios.post('http://localhost:9050/api/clocks/' + this.id_user, {crossOrigine: true})
                     .then(res => {
                         this.getClock()
                     })
             },
             getListWork() {
-                axios.get('http://localhost:4000/api/workingtimes/' + this.id_user, {crossOrigine: true})
+                axios.get('http://localhost:9050/api/workingtimes/' + this.id_user, {crossOrigine: true})
                     .then(res => {
                         this.list_work = res.data.data;
                     })
@@ -178,7 +149,7 @@
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
     padding: 50px;
   }
-
+  
   #user {
     margin-top: 2%;
     font-size: 18px;

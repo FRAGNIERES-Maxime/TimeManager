@@ -80,7 +80,6 @@
               {registered,[]},
               {vsn,"1.4.10"},
               {mod,{'Elixir.Phoenix',[]}},
-              {extra_applications,[logger,eex,crypto]},
               {env,[{stacktrace_depth,nil},
                     {template_engines,[]},
                     {format_encoders,[]},

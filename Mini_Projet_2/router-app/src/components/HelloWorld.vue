@@ -80,6 +80,8 @@
         </a>
       </li>
     </ul>
+                  <router-link :to="{ name: 'login' }" class="nav-link my-2">Sign in</router-link>
+
   </div>
 </template>
 
