@@ -1,25 +1,58 @@
 <template>
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img src="../assets/icon_connection.png" id="icon" alt="User Icon" />
-      </div>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+              aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-      <!-- Login Form -->
-      <form>
-        <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
-        <input type="text" id="Password" class="fadeIn third" name="login" placeholder="Password">
-        <router-link :to="{ name: 'users' }" ><input type="submit" class="fadeIn fourth" value="Log In"></router-link>
-        <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
-      </form>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <router-link :to="{ name: 'HelloWorld' }" class="navbar-brand text-light ">Time Manager</router-link>
+        <!--<ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <router-link :to="{ name: 'login' }" class="nav-link my-2">Sign in</router-link>
+          </li>
+          <li class="navbar-nav">
+            <router-link :to="{ name: 'newUser' }" class="nav-link my-2">Sign up</router-link>
+          </li>
+          <li class="navbar-nav">
+            <button class="btn btn-danger">Disconnect</button>
+          </li>
+        </ul>
 
-      <!-- Remind Password -->
-      <!--
-      <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
+        <form class="form-inline my-2 my-lg-0" id="searchBar">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search ..." v-model="q"
+                 v-on:keyup="getAllUsers()"/>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>-->
       </div>
-      -->
+    </nav>
+    <div class="container">
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="../assets/icon_connection.png" id="icon" alt="User Icon"/>
+          </div>
+
+          <!-- Login Form -->
+          <form>
+            <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
+            <input type="text" id="Password" class="fadeIn third" name="login" placeholder="Password">
+            <router-link id="btnSubmit" :to="{ name: 'users' }">
+              <button type="button" class="btn btn-primary btn-lg fadeIn fourth" value="Log In">Submit</button>
+            </router-link>
+            <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
+          </form>
+
+          <!-- Remind Password -->
+          <!--
+          <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+          </div>
+          -->
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,13 +64,40 @@
 </script>
 
 <style>
+  #btnSubmit {
+    margin-bottom: 10px;
+  }
+
+  @media screen and (min-width: 640px) {
+
+    .navbar {
+      z-index: 5000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+
+    .navbar {
+      z-index: 5000;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  #searchBar {
+    visibility: hidden;
+  }
+
   .wrapper {
     height: 100%;
   }
 
   a {
     color: #92badd;
-    display:inline-block;
+    display: inline-block;
     text-decoration: none;
     font-weight: 400;
   }
@@ -47,11 +107,10 @@
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
-    display:inline-block;
+    display: inline-block;
     margin: 40px 8px 10px 8px;
     color: #cccccc;
   }
-
 
 
   /* STRUCTURE */
@@ -75,8 +134,8 @@
     max-width: 450px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     text-align: center;
   }
 
@@ -88,7 +147,6 @@
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
   }
-
 
 
   /* TABS */
@@ -103,10 +161,9 @@
   }
 
 
-
   /* FORM TYPOGRAPHY*/
 
-  input[type=button], input[type=submit], input[type=reset]  {
+  input[type=button], input[type=submit], input[type=reset] {
     background-color: #56baed;
     border: none;
     color: white;
@@ -116,8 +173,8 @@
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+    box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
     margin: 5px 20px 40px 20px;
@@ -128,11 +185,11 @@
     transition: all 0.3s ease-in-out;
   }
 
-  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
     background-color: #39ace7;
   }
 
-  input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
@@ -169,7 +226,6 @@
   input[type=text]:placeholder {
     color: #cccccc;
   }
-
 
 
   /* ANIMATIONS */
@@ -211,23 +267,46 @@
   }
 
   /* Simple CSS3 Fade-in Animation */
-  @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   .fadeIn {
-    opacity:0;
-    -webkit-animation:fadeIn ease-in 1;
-    -moz-animation:fadeIn ease-in 1;
-    animation:fadeIn ease-in 1;
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
 
-    -webkit-animation-fill-mode:forwards;
-    -moz-animation-fill-mode:forwards;
-    animation-fill-mode:forwards;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 
-    -webkit-animation-duration:1s;
-    -moz-animation-duration:1s;
-    animation-duration:1s;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
   }
 
   .fadeIn.first {
@@ -270,10 +349,9 @@
     color: #0d0d0d;
   }
 
-  .underlineHover:hover:after{
+  .underlineHover:hover:after {
     width: 100%;
   }
-
 
 
   /* OTHERS */
@@ -283,7 +361,7 @@
   }
 
   #icon {
-    width:20%;
+    width: 20%;
     margin: 10px;
   }
 </style>

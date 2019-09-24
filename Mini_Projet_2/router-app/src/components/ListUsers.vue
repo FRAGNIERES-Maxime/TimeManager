@@ -1,4 +1,31 @@
 <template>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <router-link :to="{ name: 'HelloWorld' }" class="navbar-brand text-light ">Time Manager</router-link>
+        <ul class="navbar-nav mr-auto">
+          <!--<li class="nav-item">
+            <router-link :to="{ name: 'login' }" class="nav-link my-2">Sign in</router-link>
+          </li>
+          <li class="navbar-nav">
+            <router-link :to="{ name: 'newUser' }" class="nav-link my-2">Sign up</router-link>
+          </li>-->
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search ..." v-model="q"
+                 v-on:keyup="getAllUsers()"/>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <li class="navbar-nav my-2" style="margin-left: 10px">
+            <button class="btn btn-danger">Disconnect</button>
+          </li>
+        </form>
+      </div>
+    </nav>
     <div id='users' class="container">
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
@@ -21,6 +48,7 @@
           </div>
         </div>
       </div>
+    </div>
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
 
         <!--<div v-if="!list_user || !list_user.length">No User</div>
@@ -102,6 +130,25 @@ export default {
 </script>
 
 <style>
+  @media screen and (min-width: 640px) {
+
+    .navbar {
+      z-index: 5000;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+
+    .navbar{
+      z-index: 5000;
+      top: 0;
+      width: 100%;
+    }
+  }
+
   #users {
     Margin-top: 3%;
   }
