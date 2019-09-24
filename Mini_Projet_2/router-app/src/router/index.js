@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import User from '@/components/User'
 import Users from '@/components/ListUsers'
 import Login from '@/components/Login'
@@ -13,7 +12,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      name: 'login',
       component: Login
     },
     {

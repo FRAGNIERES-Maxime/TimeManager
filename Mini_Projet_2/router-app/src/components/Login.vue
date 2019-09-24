@@ -1,25 +1,31 @@
 <template>
-  <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img src="../assets/icon_connection.png" id="icon" alt="User Icon" />
-      </div>
+  <div>
+    <div class="container">
+      <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="../assets/icon_connection.png" id="icon" alt="User Icon"/>
+          </div>
 
-      <!-- Login Form -->
-      <form>
-        <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
-        <input type="text" id="Password" class="fadeIn third" name="login" placeholder="Password">
-        <router-link :to="{ name: 'users' }" ><input type="submit" class="fadeIn fourth" value="Log In"></router-link>
-        <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
-      </form>
+          <!-- Login Form -->
+          <form>
+            <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
+            <input type="text" id="Password" class="fadeIn third" name="login" placeholder="Password">
+            <router-link id="btnSubmit" :to="{ name: 'users' }">
+              <button type="button" class="btn btn-primary btn-lg fadeIn fourth" value="Log In">Submit</button>
+            </router-link>
+            <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
+          </form>
 
-      <!-- Remind Password -->
-      <!--
-      <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
+          <!-- Remind Password -->
+          <!--
+          <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+          </div>
+          -->
+        </div>
       </div>
-      -->
     </div>
   </div>
 </template>
@@ -31,6 +37,10 @@
 </script>
 
 <style>
+  #btnSubmit {
+    margin-bottom: 10px;
+  }
+
   .wrapper {
     height: 100%;
   }
