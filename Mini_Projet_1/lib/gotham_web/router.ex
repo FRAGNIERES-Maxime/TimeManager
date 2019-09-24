@@ -22,11 +22,15 @@ defmodule CityWeb.Router do
     resources "/users", UserController, only: [:create, :show, :index]
     resources "/workingtimes", WorkingTimeController, except: [:new, :edit, :show]
     options   "/users", UserController, :options
+    get "/user/:id", UserController, :auth
+
+    get "/userbymanager/:id", UserController, :userbymanager
     post "/workingtimes/:id", WorkingTimeController, :createByUser
     get "/workingtimes/:id", WorkingTimeController, :getByUser
     post "/clocks/:id", ClockController, :createOrDelete
     get "/clocks/:id", ClockController, :show
     get "/me", UserController, :show
+    resources "/ass", AssociationController, only: [:create, :update, :delete]
   end
 
 

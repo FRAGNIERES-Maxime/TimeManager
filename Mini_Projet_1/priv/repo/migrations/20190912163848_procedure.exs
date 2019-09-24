@@ -21,9 +21,10 @@ defmodule City.Repo.Migrations.Procedure do
       return lol;
     END; $$
     LANGUAGE PLPGSQL;
+
     "
   end
   def down do
-    execute "drop function createordeletecloack(integer)"
+    execute "drop function createordeletecloack(integer);"
   end
 end

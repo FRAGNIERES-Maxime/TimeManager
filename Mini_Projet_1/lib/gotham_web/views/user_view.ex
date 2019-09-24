@@ -19,6 +19,9 @@ defmodule CityWeb.UserView do
       username: user.username}
   end
 
+  def render("tmp.json", %{tmp: tmp})do
+    %{rigth_to_route: tmp.rigth_to_route}
+  end
 
   def render("jwt.json", %{jwt: jwt}) do
     %{jwt: jwt}
