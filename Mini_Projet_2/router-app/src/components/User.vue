@@ -7,10 +7,12 @@
       <div id="identity" class="col-md-6">
         <form>
           <div class="form-group">
-            User: {{user.username}}
+            <label>User:</label>
+            <input :placeholder=user.username>
           </div>
           <div class="form-group">
-            Email: {{user.email}}
+            <label>Email:</label>
+            <input :placeholder=user.email>
           </div>
           <div class="form-group">
             <select>
@@ -32,8 +34,8 @@
 
 
       <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
-      <div class="col-md-6">
-        <apexchart type="donut" :options="optionsDonut" :series="seriesDonut"></apexchart>
+      <div class="col-md-5">
+        <apexchart type="pie" :options="optionsPie" :series="seriesPie"></apexchart>
       </div>
     </div>
     <div id="charts">
@@ -66,12 +68,12 @@
                 intervalclock: 0,
                 list_work: [],
                 /* ------------------------------------ Chart ------------------------------------ */
-                /* --- Donut --- */
-                optionsDonut: {
+                /* --- Pie --- */
+                optionsPie: {
                     colors: ["#25CC00", "#cccccc"],
                     labels: ["Time active", "Time inactive"]
                 },
-                seriesDonut: [44, 55],
+                seriesPie: [44, 55],
 
                 /* --- Line --- */
                 optionsLine: {
@@ -141,14 +143,25 @@
 </script>
 
 <style>
+  .container {
+    background-color: #919191;
+    width: 100%;
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
+    padding: 50px;
+  }
+  
   #user {
     margin-top: 2%;
-    font-size: 24px;
-    font-max-size: 24px;
+    font-size: 18px;
+    font-max-size: 18px;
   }
 
   #submit {
-    font-size: 24px;
+    font-size: 18px;
+  }
+
+  #submit:hover {
+    background-color: #0067a8;
   }
 
   #btn-back {
@@ -161,10 +174,19 @@
 
   #identity {
     padding: 20px;
+    background-color: #cccccc;
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 15px;
   }
 
   #charts {
     background-color: #cccccc;
+    box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+  }
+
+  input {
+    width: 100%;
   }
 </style>

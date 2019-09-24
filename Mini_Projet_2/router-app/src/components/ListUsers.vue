@@ -108,7 +108,6 @@ export default {
 
   .container {
     background-color: #919191;
-    height: 100%;
     width: 100%;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
     padding: 50px;
