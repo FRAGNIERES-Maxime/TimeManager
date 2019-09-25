@@ -4,6 +4,7 @@ import User from '@/components/User'
 import Users from '@/components/ListUsers'
 import Login from '@/components/Login'
 import NewUser from '@/components/NewUser'
+import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -12,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Login
+      name: 'HelloWorld',
+      component: HelloWorld
     },
     {
       path: '/users',

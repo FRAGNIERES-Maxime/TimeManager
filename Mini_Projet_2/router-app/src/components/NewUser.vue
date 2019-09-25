@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper fadeInDown">
+  <div id="newUser" class="wrapper fadeInDown">
     <div id="formContent">
       <!-- Icon -->
       <div class="fadeIn first">
@@ -8,12 +8,11 @@
 
       <!-- Login Form -->
       <form>
-        <input type="text" id="Name" class="fadeIn second" name="Email" placeholder="Name">
-        <input type="text" id="First_Name" class="fadeIn second" name="Email" placeholder="First Name">
-        <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password">
-        <input type="text" id="confirm_password" class="fadeIn third" name="login" placeholder="Confirm Password">
-        <router-link :to="{ name: 'users' }" ><input type="submit" class="fadeIn fourth" value="Create user"></router-link>
+        <input type="text" v-model="newuser.username" id="First_Name" class="fadeIn second" name="" placeholder="username">
+        <input type="text" v-model="newuser.email" id="Email" class="fadeIn second" name="Email" placeholder="Email">
+        <input type="password" v-model="newuser.password" id="password" class="fadeIn third" name="login" placeholder="Password">
+        <input type="password" v-model="newuser.password_confirmation" id="confirm_password" class="fadeIn third" name="login" placeholder="Confirm Password">
+        <input type="button" v-on:click="createNewUser()" class="fadeIn fourth" value="Create user">
         <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
       </form>
 
@@ -28,8 +27,35 @@
 </template>
 
 <script>
+import auth from '@/services/auth';
+import axios from 'axios';
+import login from '@/services/login';
+
 export default {
-  name: 'NewUser'
+  name: 'NewUser',
+  data () {
+    return {
+      newuser: {
+        username: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        status: 0
+      }
+    }
+  },
+  methods: {
+    createNewUser(){
+       axios.post('http://localhost:9050/api/sign_up', {user: this.newuser})
+      .then((res) => {
+        auth.setToken(res.data.jwt);
+        this.login.getLogin();
+        this.$route.push('/api') // vas etre géré par login.js
+        
+      })
+      .catch(err => console.log(err));
+    }
+  }
 }
 </script>
 

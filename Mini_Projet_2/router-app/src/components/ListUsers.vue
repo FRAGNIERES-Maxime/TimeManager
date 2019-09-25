@@ -3,8 +3,9 @@
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
         <div class="col-sm-6 col-lg-4" v-for="u in list_user"
-             :key="u.id">
-          <div class="brand-card" v-on:click="navigate(u.id)">
+             :key="u.id"
+             >
+          <div  class="brand-card" v-on:click="navigate(u.id)">
             <div class="brand-card-header bg-success">
               <h3>00:00:00</h3>
             </div>
@@ -45,6 +46,11 @@
 <script>
 import axios from 'axios';
 import router from '../router/';
+import api from '@/api/api';
+import auth from '@/services/auth';
+
+
+
 
 export default {
   name: 'Users',
@@ -63,15 +69,17 @@ export default {
    watch: {
       '$route': 'getAllUsers'
     },
+    //created : component charged, run functions
     created() {
       this.getAllUsers()
     },
   methods: {
       getAllUsers(){
-          axios.get('http://localhost:9050/api/users?email=&username='+this.q, {crossOrigine: true})
+        console.log(auth.getHeaders());
+          api.getAllUsers()
           .then(result => {
                 this.list_user = result.data.data;
-
+                console.log(result);
           })
 
       },

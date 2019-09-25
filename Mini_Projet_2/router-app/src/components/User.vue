@@ -53,6 +53,7 @@
 <script>
     import axios from 'axios'
     import moment from 'moment'
+    import api from '@/api/api';
 
     export default {
         name: 'User',
@@ -103,16 +104,14 @@
         },
         methods: {
             getUser() {
-                axios.get('http://localhost:9050/api/users/' + this.id_user, {crossOrigine: true})
+                api.getUser(this.id_user)
                     .then(result => {
-                        this.user = result.data.data;
+                        this.user = result.data;
                         this.getClock()
-                    }, (err) => {
-                        this.$router.push("/");
-                    })
+                    });
             },
             getClock() {
-                axios.get('http://localhost:9050/api/clocks/' + this.id_user, {crossOrigine: true})
+                api.getClock(this.id_user)
                     .then(res => {
                         if (res.data.data) {
                             this.intervalclock = setInterval(() =>
@@ -126,13 +125,13 @@
                     })
             },
             postClock() {
-                axios.post('http://localhost:9050/api/clocks/' + this.id_user, {crossOrigine: true})
+                api.postClock(this.id_user)
                     .then(res => {
                         this.getClock()
                     })
             },
             getListWork() {
-                axios.get('http://localhost:9050/api/workingtimes/' + this.id_user, {crossOrigine: true})
+                  api.getListWork(this.id_user)
                     .then(res => {
                         this.list_work = res.data.data;
                     })

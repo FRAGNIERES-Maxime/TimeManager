@@ -12,10 +12,8 @@
 
       <form class="form-inline my-2 my-lg-0">
 
-        <input class="form-control mr-sm-2" type="text" placeholder="Search ..." v-model="q" v-on:keyup="getAllUsers()" v-if="logged"/>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-if="logged">Search</button>
         <li class="navbar-nav my-2" style="margin-left: 10px">
-          <router-link class="btn btn-danger" :to="{ name: 'login' }" v-if="logged">Disconnect</router-link>
+          <button class="btn btn-danger" v-on:click="deco" v-if="logged">Disconnect</button>
         </li>
       </form>
     </div>
@@ -24,12 +22,18 @@
 </template>
 
 <script>
+import login from '@/services/login'
     export default {
         name: "Header",
         data() {
             return {
-                logged: localStorage.getItem("jwt") !== null
+                logged: localStorage.getItem("token-auth") !== null
             }
+        },
+        methods:{
+          deco(){
+            login.logOut()
+          }
         }
     }
 </script>

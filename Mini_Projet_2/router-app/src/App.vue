@@ -1,16 +1,39 @@
 <template>
   <div id="app">
-    <Header/>
+    <!--Header-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <router-link :to="{ name: 'login' }" class="navbar-brand text-light">TimeManager</router-link>
+      <ul class="navbar-nav mr-auto"></ul>
+
+      <form class="form-inline my-2 my-lg-0" v-if="checkCo()">
+        <li class="navbar-nav my-2" style="margin-left: 10px">
+          
+        <label>{{ checkMe() }}</label>
+          <button class="btn btn-danger" v-on:click="deco" >Disconnect</button>
+        </li>
+      </form>
+    </div>
+  </nav>
+        <!---->
+
+
     <!--<router-link :to="{ name: 'users' }">users</router-link>-->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-    import axios from 'axios'
-    import router from './router/'
+    import axios from 'axios';
+    import router from './router/';
     import Header from "./components/Header";
-
+    import auth from '@/services/auth';
+    import login from '@/services/login'
     export default {
         name: 'App',
         components: {Header},
@@ -18,6 +41,7 @@
         data() {
             return {
                 msg: 'Loaad',
+                me: {},
                 list_user: "lala",
                 q: "",
                 new_user: {
@@ -27,24 +51,39 @@
                 error: ""
             }
         },
-        watch: {
-            '$route': 'getAllUsers'
+        created(){
+          
+          this.me = login.getMe();
+          if (auth.token == null){
+            if (this.$router.history.current.path != "/login" && this.$router.history.current.path != "/NewUser")
+            {        
+              this.$router.push("/login")}
+
+          }
         },
-        created() {
-            this.getAllUsers()
+        updated(){
+          console.log("he passe ");
+          this.me = login.getMe();
+          if (auth.token == null){
+            if (this.$router.history.current.path != "/login" && this.$router.history.current.path != "/NewUser")
+             {         
+              this.$router.push("/login")}
+          }
         },
         methods: {
-            getAllUsers() {
-                axios.get('http://localhost:9050/api/users?email=&username=' + this.q, {crossOrigine: true})
-                    .then(result => {
-                        this.list_user = result.data.data;
-
-                    })
-
+          checkMe(){
+            return this.me.username;
+          },
+            checkCo(){
+              console.log(auth.isAuth())
+              return auth.isAuth();
             },
             navigate(id) {
                 router.push({name: "user", params: {id: id}})
-            }
+            },
+              deco(){
+            login.logOut()
+          }
         }
     }
 </script>

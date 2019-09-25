@@ -1,46 +1,66 @@
 <template>
-  <div>
-    <div class="container">
-      <div class="wrapper fadeInDown">
-        <div id="formContent">
-          <!-- Icon -->
-          <div class="fadeIn first">
-            <img src="../assets/icon_connection.png" id="icon" alt="User Icon"/>
-          </div>
-
-          <!-- Login Form -->
-          <form>
-            <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
-            <input type="text" id="Password" class="fadeIn third" name="login" placeholder="Password">
-            <router-link id="btnSubmit" :to="{ name: 'users' }">
-              <button type="button" class="btn btn-primary btn-lg fadeIn fourth" value="Log In">Submit</button>
-            </router-link>
-            <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
-          </form>
-
-          <!-- Remind Password -->
-          <!--
-          <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-          </div>
-          -->
-        </div>
+  <div id="Login" class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="../assets/icon_connection.png" id="icon" alt="User Icon" />
       </div>
+
+      <!-- Login Form -->
+      <form>
+        <input type="text" id="Email" v-model="email" class="fadeIn second" name="Email" placeholder="Email">
+        <input type="text" id="Password" v-model="password" class="fadeIn third" name="login" placeholder="Password">
+        <input type="button" class="fadeIn fourth" value="Log In"  v-on:click="startLogin()">
+        <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
+      </form>
+
+      <!-- Remind Password -->
+      <!--
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
+      -->
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        name: 'Login'
+import auth from '@/services/auth';
+import axios from 'axios';
+import login from '@/services/login';
+
+export default {
+      name: 'Login',
+      data () {
+        return {
+              email: '',
+              password: ''
+          }
+        },
+      methods: {
+        startLogin(){
+          console.log("test")
+           axios.post('http://localhost:9050/api/sign_in',  {email: this.email, password: this.password}, {} )
+          .then(res => {
+             auth.setToken(res.data.jwt);
+            /*axios.get('http://localhost:5000/api/me', {headers: {Authorization: "Bearer "+auth.token}})
+            .then(res => {
+                 Object.assign(me, res.data);
+            }).catch(err => {
+                console.log(err);
+            });*/
+            login.getLogin();
+            this.$router.push("/"); // login.js qui va redirigé 
+          }).catch(err => {
+            console.warn(err);
+            alert(err);
+          })
+        }
+      }
     }
 </script>
 
 <style>
-  #btnSubmit {
-    margin-bottom: 10px;
-  }
-
   .wrapper {
     height: 100%;
   }

@@ -18,11 +18,11 @@ extract_plural_form({{plural_form, _Line, PluralForm}, String}) ->
 add_comments_to_translation({TranslationType, Translation}, Comments) ->
   {TranslationType, maps:put(comments, Comments, Translation)}.
 
--file("/usr/lib64/erlang/lib/parsetools-2.1.6/include/yeccpre.hrl", 0).
+-file("d:/Program Files/erl10.3/lib/parsetools-2.1.8/include/yeccpre.hrl", 0).
 %%
 %% %CopyrightBegin%
 %%
-%% Copyright Ericsson AB 1996-2017. All Rights Reserved.
+%% Copyright Ericsson AB 1996-2018. All Rights Reserved.
 %%
 %% Licensed under the Apache License, Version 2.0 (the "License");
 %% you may not use this file except in compliance with the License.
@@ -77,8 +77,7 @@ return_error(Line, Message) ->
 yeccpars0(Tokens, Tzr, State, States, Vstack) ->
     try yeccpars1(Tokens, Tzr, State, States, Vstack)
     catch 
-        error: Error ->
-            Stacktrace = erlang:get_stacktrace(),
+        error: Error: Stacktrace ->
             try yecc_error_type(Error, Stacktrace) of
                 Desc ->
                     erlang:raise(error, {yecc_bug, ?CODE_VERSION, Desc},
@@ -191,7 +190,7 @@ yecctoken2string(Other) ->
 
 
 
--file("src/gettext_po_parser.erl", 194).
+-file("src/gettext_po_parser.erl", 193).
 
 -dialyzer({nowarn_function, yeccpars2/7}).
 yeccpars2(0=S, Cat, Ss, Stack, T, Ts, Tzr) ->
