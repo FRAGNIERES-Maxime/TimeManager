@@ -6,8 +6,10 @@ import Login from '@/components/Connexion/Login'
 import NewUser from '@/components/Connexion/NewUser'
 import HelloWorld from '@/components/HelloWorld'
 import Employe from '@/components/Employe/Employe'
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
 
-
+Vue.use(Vuetify);
 Vue.use(Router)
 
 export default new Router({

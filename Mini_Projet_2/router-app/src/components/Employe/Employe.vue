@@ -1,8 +1,6 @@
 <template>
  <v-card class="mx-auto" >
-  <div id="app">
-
-
+  <div id="chrono">
     <div class="timer">
       <span class="hours">{{ hours }}</span>
       <span>:</span>
@@ -11,11 +9,8 @@
       <span class="seconds">{{ seconds }}</span>
     </div>
     <div class="controls">
-      <div class="start" v-if="!timer" @click="startTimer">start
+      <div class="start" v-if="!timer" @click="startTimer " >start
         <i data-feather="play" ></i>
-      </div>
-      <div class="pause"  v-if="timer" @click="stopTimer">pause
-        <i data-feather="square"></i>
       </div>
       <div class="stop" v-if="resetButton" @click="resetTimer">stop
         <i data-feather="rotate-cw"></i>
@@ -28,8 +23,14 @@
 
 <script> 
 
+import api from '@/api/api';
+import auth from '@/services/auth';
+
 export default {
-  name: 'Report',
+
+ 
+
+  name: 'Employe',
   data() {
           return {
     timer: null,
@@ -44,11 +45,7 @@ export default {
       this.timer = setInterval(() => this.count(), 1000); //1000ms = 1 second
       this.resetButton = true;
     },
-    stopTimer: function() {
-      clearInterval(this.timer);
-      this.timer = null;
-      this.resetButton = true;
-    },
+    
     resetTimer: function() {
       this.totalTime = (0 * 60);
       clearInterval(this.timer);
@@ -63,7 +60,11 @@ export default {
     },
     count: function() {
       this.totalTime++;
-    }
+    },
+     postClock(){
+        //  api.postClock()
+
+      },
   },
   computed: {
     hours: function(){
@@ -93,7 +94,12 @@ export default {
   justify-content: center;
 }
 
-  .app {
+.theme--light.v-card {
+    margin-top: 10%;
+    background-color: #fff;
+    color: rgba(0,0,0,.87);
+}
+  .chrono {
     display: flex; 
     flex-direction: column;
     align-items: center;

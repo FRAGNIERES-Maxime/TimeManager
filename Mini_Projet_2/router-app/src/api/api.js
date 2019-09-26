@@ -47,8 +47,7 @@ getClock(id) {
     
 },
 postClock(id) {
-    return axios.post('http://localhost:9050/api/clocks/' +id ,auth.getHeaders() )
-         
+    return axios.post('http://localhost:9050/api/clocks/' +id ,auth.getHeaders() )      
 },
 getListWork(id) {
     return axios.get('http://localhost:9050/api/workingtimes/' +id ,auth.getHeaders())

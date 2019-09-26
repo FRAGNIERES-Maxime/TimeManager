@@ -4,7 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueApexCharts from 'vue-apexcharts'
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
 
+Vue.use(Vuetify);
 Vue.use(VueApexCharts);
 
 Vue.component('apexchart', VueApexCharts);

@@ -12,13 +12,7 @@ var login = {
             .then(res => {
                 Object.assign(this.me, res.data);
                 // redir vers les bonne routes 
-                if (this.me.status == 0){
-                    router.push("/employe");
-                } else if (this.me.status == 1){
-                    //nouveau composant manager
-                }else{
-                    //nouveau composant admin
-                }
+                this.goDashboard()
             }).catch(err => {
                 console.log(err);
             });
@@ -37,6 +31,15 @@ var login = {
         auth.logOut();
         localStorage.removeItem("token-auth");
         router.push("/login");
+    },
+    goDashboard(){
+        if (this.me.status == 0){
+            router.push("/employe");
+        } else if (this.me.status == 1){
+            //nouveau composant manager
+        }else{
+            //nouveau composant admin
+        }
     }
 }
 

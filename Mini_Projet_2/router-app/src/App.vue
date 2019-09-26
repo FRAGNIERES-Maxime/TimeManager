@@ -8,7 +8,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <router-link :to="{ name: 'login' }" class="navbar-brand text-light">TimeManager</router-link>
+      <button v-on:click="goDashboard()">TimeManager</button>
       <ul class="navbar-nav mr-auto"></ul>
 
       <form class="form-inline my-2 my-lg-0" v-if="checkCo()">
@@ -84,7 +84,10 @@ console.log(this.$router.history.current.path)
             },
               deco(){
             login.logOut()
-          } 
+          } ,
+          goDashboard(){
+            login.goDashboard()
+          }
         }
     }
 </script>
