@@ -132,7 +132,7 @@
                     })
             },
             getListWork() {
-                  api.getListWork(this.id_user)
+                api.getListWork(this.id_user)
                     .then(res => {
                         this.list_work = res.data.data;
                     })
@@ -143,13 +143,25 @@
 </script>
 
 <style>
+  select {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+  }
+
+  input {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #ffffff;
+  }
+
   .container {
     background-color: #919191;
     width: 100%;
     box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.7);
     padding: 50px;
   }
-  
+
   #user {
     margin-top: 2%;
     font-size: 18px;

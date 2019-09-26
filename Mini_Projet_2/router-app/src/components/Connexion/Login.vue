@@ -3,16 +3,22 @@
     <div id="formContent">
       <!-- Icon -->
       <div class="fadeIn first">
-        <img src="../../assets/icon_connection.png" id="icon" alt="User Icon" />
+        <img src="../../assets/icon_connection.png" id="icon" alt="User Icon"/>
       </div>
 
       <!-- Login Form -->
       <form>
         <input type="text" id="Email" v-model="email" class="fadeIn second" name="Email" placeholder="Email">
         <input type="text" id="Password" v-model="password" class="fadeIn third" name="login" placeholder="Password">
-        <span v-if="errors" style= "color:red"><p  v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
-        <input type="button" class="fadeIn fourth" value="Log In"  v-on:click="startLogin()">
-           <input type="button" class="fadeIn fourth" value="Sign up"  v-on:click="signup()">
+        <span v-if="errors" style="color:red"><p v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
+        <ul>
+          <li>
+            <button type="button" class="buttonSign btn-primary btn-lg fadeIn fourth" value="Log In" v-on:click="startLogin()">Log In</button>
+          </li>
+          <li>
+            <button type="button" class="buttonSign btn btn-primary btn-lg fadeIn fourth" value="Sign up" v-on:click="signup()">Sign up</button>
+          </li>
+        </ul>
 
         <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
       </form>
@@ -28,47 +34,52 @@
 </template>
 
 <script>
-import auth from '@/services/auth';
-import axios from 'axios';
-import login from '@/services/login';
+    import auth from '@/services/auth';
+    import axios from 'axios';
+    import login from '@/services/login';
 
-export default {
-      name: 'Login',
-      data () {
-        return {
-              email: '',
-              password: '',
-              errors:null
+    export default {
+        name: 'Login',
+        data() {
+            return {
+                email: '',
+                password: '',
+                errors: null
 
-          }
+            }
         },
-      methods: {
-        startLogin(){
-          console.log("test")
-           axios.post('http://localhost:9050/api/sign_in',  {email: this.email, password: this.password}, {} )
-          .then(res => {
-             auth.setToken(res.data.jwt);
-            login.getLogin();
-          }).catch(err => {
-                  this.errors = err.response.data
+        methods: {
+            startLogin() {
+                console.log("test")
+                axios.post('http://localhost:9050/api/sign_in', {email: this.email, password: this.password}, {})
+                    .then(res => {
+                        auth.setToken(res.data.jwt);
+                        login.getLogin();
+                    }).catch(err => {
+                    this.errors = err.response.data
 
-           })
-        },
-        signup(){
-           this.$router.push("/NewUser");
+                })
+            },
+            signup() {
+                this.$router.push("/NewUser");
+            }
         }
-      }
     }
 </script>
 
 <style>
+  .buttonSign {
+    margin: 10px;
+    width: 50%;
+  }
+
   .wrapper {
     height: 100%;
   }
 
   a {
     color: #92badd;
-    display:inline-block;
+    display: inline-block;
     text-decoration: none;
     font-weight: 400;
   }
@@ -78,11 +89,10 @@ export default {
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
-    display:inline-block;
+    display: inline-block;
     margin: 40px 8px 10px 8px;
     color: #cccccc;
   }
-
 
 
   /* STRUCTURE */
@@ -106,8 +116,8 @@ export default {
     max-width: 450px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     text-align: center;
   }
 
@@ -119,7 +129,6 @@ export default {
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
   }
-
 
 
   /* TABS */
@@ -134,10 +143,9 @@ export default {
   }
 
 
-
   /* FORM TYPOGRAPHY*/
 
-  input[type=button], input[type=submit], input[type=reset]  {
+  input[type=button], input[type=submit], input[type=reset] {
     background-color: #56baed;
     border: none;
     color: white;
@@ -147,8 +155,8 @@ export default {
     display: inline-block;
     text-transform: uppercase;
     font-size: 13px;
-    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+    box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
     margin: 5px 20px 40px 20px;
@@ -159,11 +167,11 @@ export default {
     transition: all 0.3s ease-in-out;
   }
 
-  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
     background-color: #39ace7;
   }
 
-  input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
     -moz-transform: scale(0.95);
     -webkit-transform: scale(0.95);
     -o-transform: scale(0.95);
@@ -200,7 +208,6 @@ export default {
   input[type=text]:placeholder {
     color: #cccccc;
   }
-
 
 
   /* ANIMATIONS */
@@ -242,23 +249,46 @@ export default {
   }
 
   /* Simple CSS3 Fade-in Animation */
-  @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
   .fadeIn {
-    opacity:0;
-    -webkit-animation:fadeIn ease-in 1;
-    -moz-animation:fadeIn ease-in 1;
-    animation:fadeIn ease-in 1;
+    opacity: 0;
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
 
-    -webkit-animation-fill-mode:forwards;
-    -moz-animation-fill-mode:forwards;
-    animation-fill-mode:forwards;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 
-    -webkit-animation-duration:1s;
-    -moz-animation-duration:1s;
-    animation-duration:1s;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
   }
 
   .fadeIn.first {
@@ -301,10 +331,9 @@ export default {
     color: #0d0d0d;
   }
 
-  .underlineHover:hover:after{
+  .underlineHover:hover:after {
     width: 100%;
   }
-
 
 
   /* OTHERS */
@@ -314,7 +343,7 @@ export default {
   }
 
   #icon {
-    width:20%;
+    width: 20%;
     margin: 10px;
   }
 </style>
