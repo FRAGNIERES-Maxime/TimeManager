@@ -2,10 +2,10 @@ defmodule City.Repo.Migrations.RigthToRoute do
   use Ecto.Migration
 
   def up do
-    "CREATE OR REPLACE FUNCTION rigth_to_route(
+    execute "CREATE OR REPLACE FUNCTION rigth_to_route(
       mid integer,
       uid integer)
-    RETURNS TABLE (id integer, email VARCHAR, status integer, username VARCHAR) AS
+    RETURNS TABLE (id BIGINT, email VARCHAR, status integer, username VARCHAR) AS
   $BODY$
   DECLARE
     Mstatus integer;
@@ -24,6 +24,6 @@ defmodule City.Repo.Migrations.RigthToRoute do
 
   end
   def down do
-    "drop function rigth_to_route"
+    execute "drop function rigth_to_route"
   end
 end

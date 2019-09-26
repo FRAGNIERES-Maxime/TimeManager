@@ -13,7 +13,7 @@ var login = {
                 Object.assign(this.me, res.data);
                 // redir vers les bonne routes 
                 if (this.me.status == 0){
-                    //nouveau composant employer
+                    router.push("/employe");
                 } else if (this.me.status == 1){
                     //nouveau composant manager
                 }else{
@@ -22,13 +22,13 @@ var login = {
             }).catch(err => {
                 console.log(err);
             });
-        } else {
-            router.push("/login");
         }
     },
     getMe(){
-        if (this.me == null)
+        if (this.me == null){
             this.me = new Object();
+            this.me.id = 0;
+        }
         if (this.me.status == undefined)
             this.getLogin();
         return this.me;

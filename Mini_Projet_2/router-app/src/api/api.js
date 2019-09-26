@@ -39,7 +39,7 @@ export default {
     })
 },
 getUser(id) {
-    return axios.get('http://localhost:9050/api/users/'+id ,auth.getHeaders())
+    return axios.get('http://localhost:9050/api/user/'+id ,auth.getHeaders())
         
 },
 getClock(id) {

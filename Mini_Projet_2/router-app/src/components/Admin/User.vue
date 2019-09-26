@@ -100,13 +100,14 @@
         watch: {},
         created() {
             this.id_user = this.$router.currentRoute.params.id;
+            console.log(this.id_user);
             this.getUser();
         },
         methods: {
             getUser() {
                 api.getUser(this.id_user)
                     .then(result => {
-                        this.user = result.data;
+                        this.user = result.data.data[0];
                         this.getClock()
                     });
             },

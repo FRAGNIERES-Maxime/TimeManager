@@ -40,7 +40,7 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        status: 0
+        status: 2
       }
     }
   },
@@ -49,8 +49,8 @@ export default {
        axios.post('http://localhost:9050/api/sign_up', {user: this.newuser})
       .then((res) => {
         auth.setToken(res.data.jwt);
-        this.login.getLogin();
-        this.$route.push('/api') // vas etre géré par login.js
+        login.getLogin();
+        this.$route.next('/api') // vas etre géré par login.js
         
       })
       .catch(err => console.log(err));

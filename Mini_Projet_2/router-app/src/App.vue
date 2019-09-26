@@ -14,7 +14,7 @@
       <form class="form-inline my-2 my-lg-0" v-if="checkCo()">
         <li class="navbar-nav my-2" style="margin-left: 10px">
           
-        <label>{{ checkMe() }}</label>
+        <label v-if="me.id != 0">{{ checkMe() }}</label>
           <button class="btn btn-danger" v-on:click="deco" v-if="logged">Disconnect</button>
         </li>
       </form>
@@ -55,6 +55,7 @@
           
           this.me = login.getMe();
           if (auth.token == null){
+console.log(this.$router.history.current.path)
             if (this.$router.history.current.path != "/login" && this.$router.history.current.path != "/NewUser")
             {        
               this.$router.push("/login")}

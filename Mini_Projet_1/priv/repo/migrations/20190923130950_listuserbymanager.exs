@@ -2,7 +2,7 @@ defmodule City.Repo.Migrations.Listuserbymanager do
   use Ecto.Migration
 
   def up do
-    "
+    execute "
     CREATE OR REPLACE FUNCTION LIST_USER_MANAGER(mId integer)
     RETURNS TABLE (id BIGINT, email VARCHAR, status INT, username VARCHAR) as $$
     BEGIN
@@ -14,6 +14,6 @@ defmodule City.Repo.Migrations.Listuserbymanager do
     LANGUAGE 'plpgsql';"
   end
   def down do
-    "drop function list_user_manager;"
+    execute "drop function list_user_manager;"
   end
 end

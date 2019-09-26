@@ -11,6 +11,8 @@
         <input type="text" id="Email" v-model="email" class="fadeIn second" name="Email" placeholder="Email">
         <input type="text" id="Password" v-model="password" class="fadeIn third" name="login" placeholder="Password">
         <input type="button" class="fadeIn fourth" value="Log In"  v-on:click="startLogin()">
+           <input type="button" class="fadeIn fourth" value="Sign up"  v-on:click="signup()">
+
         <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
       </form>
 
@@ -55,6 +57,9 @@ export default {
             console.warn(err);
             alert(err);
           })
+        },
+        signup(){
+           this.$router.push("/NewUser");
         }
       }
     }

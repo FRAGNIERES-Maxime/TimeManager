@@ -1,58 +1,139 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
-          
-     <br><br><router-link :to="{ name: 'HelloWorld' }"  >Home</router-link><br>
-    <router-link :to="{ name: 'users' }">users</router-link><br>
-    <router-link :to="{ name: 'report' }">report</router-link>    
-       
-    </v-navigation-drawer>
+ <v-card class="mx-auto" >
+  <div id="app">
 
-    <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-app-bar>
 
-    <v-content>
-      <v-container class="fill-height" fluid>
-         <router-view></router-view>
-      </v-container>
-    </v-content>
+    <div class="timer">
+      <span class="hours">{{ hours }}</span>
+      <span>:</span>
+      <span class="minute">{{ minutes }}</span>
+      <span>:</span>
+      <span class="seconds">{{ seconds }}</span>
+    </div>
+    <div class="controls">
+      <div class="start" v-if="!timer" @click="startTimer">start
+        <i data-feather="play" ></i>
+      </div>
+      <div class="pause"  v-if="timer" @click="stopTimer">pause
+        <i data-feather="square"></i>
+      </div>
+      <div class="stop" v-if="resetButton" @click="resetTimer">stop
+        <i data-feather="rotate-cw"></i>
+      </div>
+    </div>
+  </div>
+</v-card>
 
-    
-  </v-app>
 </template>
 
-<script>
-  export default {
-    name: 'App',
-  
+<script> 
+
+export default {
+  name: 'Report',
+  data() {
+          return {
+    timer: null,
+    totalTime: (0 * 60 ),
+    resetButton: false,
+    title: "working hours",
+    edit: false
   }
+  },
+  methods: {
+    startTimer: function() {
+      this.timer = setInterval(() => this.count(), 1000); //1000ms = 1 second
+      this.resetButton = true;
+    },
+    stopTimer: function() {
+      clearInterval(this.timer);
+      this.timer = null;
+      this.resetButton = true;
+    },
+    resetTimer: function() {
+      this.totalTime = (0 * 60);
+      clearInterval(this.timer);
+      this.timer = null;
+      this.resetButton = false;
+    },
+    editTimer: function() {
+      this.edit = true;
+    },
+    padTime: function(time){
+      return (time < 10 ? '0' : '') + time;
+    },
+    count: function() {
+      this.totalTime++;
+    }
+  },
+  computed: {
+    hours: function(){
+      const hours = Math.floor(this.totalTime / 60);
+      return this.padTime(hours);
+    },
+    minutes: function(){
+      const minutes = Math.floor(this.totalTime / 60);
+      return this.padTime(minutes);
+    },
+    seconds: function() {
+      const seconds = this.totalTime - (this.minutes * 60);
+      return this.padTime(seconds);
+    },
+  }
+}
   </script>
 
-  <style lang="scss">
+ <style>
 
-  .theme--dark.v-sheet {
-    background-color: #000000;
-    border-color: #424242;
-    color: #fff;
+.container {
+  height: 100vh;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.theme--dark.v-navigation-drawer {
-    border-right-style: outset;
-    background-color: #131313;
-    border-color: white;
-}
+  .app {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+   
+  }
+  .timer {
+    font-size:3rem;
+    color: black;
+  }
+  .controls {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+   
+  }
+  .input {
+       background-color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 1em;
+      text-align: center;
+      color: black;
+    
+  }
+  .mx-auto{
+    background-color: white;
+    margin: auto;
+    width: 30% ;
+    padding: 10px;
+       border: 0.2px solid black;
+  }
 
-.theme--dark.v-application {
-    background: #fff;
-    color: #fff;
-}
-
-.v-content__wrap {
-    flex: 1 1 auto;
-    max-width: 100%;
-    position: relative;
-    background-color: black;
-}
+  .start{
+   font-size:2rem;
+  }
+   .stop{
+   font-size:2rem;
+  }
+   .pause{
+   font-size:2rem;
+  }
   </style>

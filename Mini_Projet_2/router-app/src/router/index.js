@@ -5,6 +5,8 @@ import Users from '@/components/Admin/ListUsers'
 import Login from '@/components/Connexion/Login'
 import NewUser from '@/components/Connexion/NewUser'
 import HelloWorld from '@/components/HelloWorld'
+import Employe from '@/components/Employe/Employe'
+
 
 Vue.use(Router)
 
@@ -35,6 +37,11 @@ export default new Router({
       path: '/user/:id',
       name: "user",
       component: User
+    },
+    {
+      path: '/Employe',
+      name: "employe",
+      component: Employe
     },
   ]
 })
