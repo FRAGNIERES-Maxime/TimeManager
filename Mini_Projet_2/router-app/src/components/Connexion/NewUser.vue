@@ -12,7 +12,7 @@
         <input type="text" v-model="newuser.email" id="Email" class="fadeIn second" name="Email" placeholder="Email">
         <input type="password" v-model="newuser.password" id="password" class="fadeIn third" name="login" placeholder="Password">
         <input type="password" v-model="newuser.password_confirmation" id="confirm_password" class="fadeIn third" name="login" placeholder="Confirm Password">
-        <span v-if="error" style= "color:red"><p  v-for="(e, index) in error" :key="index">{{index}}-{{e}}</p></span>
+        <span v-if="errors" style= "color:red"><p  v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
         <input type="button" v-on:click="createNewUser()" class="fadeIn fourth" value="Create user">
         
         <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
@@ -44,7 +44,7 @@ export default {
         password_confirmation: '',
         status: 2
       },
-      error:null
+      errors:null
     }
   },
   methods: {
@@ -58,9 +58,8 @@ export default {
       })
       .catch((err) => {
         console.log(err.response)
-        this.error = err.response.data.errors 
-        console.log(this.errors)
-      });
+        this.errors = err.response.data.errors 
+       });
     }
   }
 }

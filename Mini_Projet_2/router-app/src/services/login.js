@@ -12,6 +12,7 @@ var login = {
             .then(res => {
                 Object.assign(this.me, res.data);
                 // redir vers les bonne routes 
+                console.log(res)
                 this.goDashboard()
             }).catch(err => {
                 console.log(err);
@@ -38,7 +39,8 @@ var login = {
         } else if (this.me.status == 1){
             //nouveau composant manager
         }else{
-            //nouveau composant admin
+            router.push("/users");
+
         }
     }
 }

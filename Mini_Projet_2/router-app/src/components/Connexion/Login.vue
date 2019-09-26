@@ -10,6 +10,7 @@
       <form>
         <input type="text" id="Email" v-model="email" class="fadeIn second" name="Email" placeholder="Email">
         <input type="text" id="Password" v-model="password" class="fadeIn third" name="login" placeholder="Password">
+        <span v-if="errors" style= "color:red"><p  v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
         <input type="button" class="fadeIn fourth" value="Log In"  v-on:click="startLogin()">
            <input type="button" class="fadeIn fourth" value="Sign up"  v-on:click="signup()">
 
@@ -36,7 +37,9 @@ export default {
       data () {
         return {
               email: '',
-              password: ''
+              password: '',
+              errors:null
+
           }
         },
       methods: {
@@ -45,18 +48,11 @@ export default {
            axios.post('http://localhost:9050/api/sign_in',  {email: this.email, password: this.password}, {} )
           .then(res => {
              auth.setToken(res.data.jwt);
-            /*axios.get('http://localhost:5000/api/me', {headers: {Authorization: "Bearer "+auth.token}})
-            .then(res => {
-                 Object.assign(me, res.data);
-            }).catch(err => {
-                console.log(err);
-            });*/
             login.getLogin();
-            this.$router.push("/"); // login.js qui va redirigé 
           }).catch(err => {
-            console.warn(err);
-            alert(err);
-          })
+                  this.errors = err.response.data
+
+           })
         },
         signup(){
            this.$router.push("/NewUser");

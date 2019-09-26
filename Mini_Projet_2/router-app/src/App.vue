@@ -15,7 +15,7 @@
         <li class="navbar-nav my-2" style="margin-left: 10px">
           
         <label v-if="me.id != 0">{{ checkMe() }}</label>
-          <button class="btn btn-danger" v-on:click="deco" v-if="logged">Disconnect</button>
+          <button class="btn btn-danger" v-on:click="deco" v-if="me.id != 0">Disconnect</button>
         </li>
       </form>
     </div>
