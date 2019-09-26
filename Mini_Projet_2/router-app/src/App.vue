@@ -15,7 +15,7 @@
         <li class="navbar-nav my-2" style="margin-left: 10px">
           
         <label>{{ checkMe() }}</label>
-          <button class="btn btn-danger" v-on:click="deco" >Disconnect</button>
+          <button class="btn btn-danger" v-on:click="deco" v-if="logged">Disconnect</button>
         </li>
       </form>
     </div>
@@ -31,12 +31,10 @@
 <script>
     import axios from 'axios';
     import router from './router/';
-    import Header from "./components/Header";
     import auth from '@/services/auth';
     import login from '@/services/login'
     export default {
         name: 'App',
-        components: {Header},
         name: 'Users',
         data() {
             return {
@@ -48,6 +46,8 @@
                     username: "",
                     email: ""
                 },
+                 
+                logged: localStorage.getItem("token-auth") !== null,
                 error: ""
             }
         },
@@ -83,7 +83,7 @@
             },
               deco(){
             login.logOut()
-          }
+          } 
         }
     }
 </script>

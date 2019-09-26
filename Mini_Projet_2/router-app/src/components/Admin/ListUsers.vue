@@ -45,11 +45,9 @@
 
 <script>
 import axios from 'axios';
-import router from '../router/';
+import router from '../../router/';
 import api from '@/api/api';
 import auth from '@/services/auth';
-
-
 
 
 export default {
