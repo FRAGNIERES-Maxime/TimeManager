@@ -1,5 +1,4 @@
 <template>
- <v-card class="mx-auto" >
   <div id="chrono">
     <div class="timer">
       <span class="hours">{{ hours }}</span>
@@ -17,7 +16,6 @@
       </div>
     </div>
   </div>
-</v-card>
 
 </template>
 
