@@ -8,13 +8,13 @@
 
       <!-- Login Form -->
       <form>
-        <input type="text" v-model="newuser.username" id="First_Name" class="fadeIn second" name="" placeholder="username">
+        <input type="text" v-model="newuser.username" id="First_Name" class="fadeIn second" name="login" placeholder="Username">
         <input type="text" v-model="newuser.email" id="Email" class="fadeIn second" name="Email" placeholder="Email">
-        <input type="password" v-model="newuser.password" id="password" class="fadeIn third" name="login" placeholder="Password">
-        <input type="password" v-model="newuser.password_confirmation" id="confirm_password" class="fadeIn third" name="login" placeholder="Confirm Password">
+        <input type="password" v-model="newuser.password" id="password" class="fadeIn second" name="login" placeholder="Password">
+        <input type="password" v-model="newuser.password_confirmation" id="confirm_password" class="fadeIn second" name="login" placeholder="Confirm Password">
         <span v-if="errors" style= "color:red"><p  v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
-        <input type="button" v-on:click="createNewUser()" class="fadeIn fourth" value="Create user">
-        
+        <button type="button" class="buttonSign btn-primary btn-lg fadeIn fourth" value="Create user" v-on:click="createNewUser()">Create user</button>
+
         <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
       </form>
 
@@ -54,11 +54,11 @@ export default {
         auth.setToken(res.data.jwt);
         login.getLogin();
         this.$route.next('/api') // vas etre géré par login.js
-        
+
       })
       .catch((err) => {
         console.log(err.response)
-        this.errors = err.response.data.errors 
+        this.errors = err.response.data.errors
        });
     }
   }
@@ -66,6 +66,11 @@ export default {
 </script>
 
 <style>
+  .buttonSign {
+    margin: 10px;
+    width: 50%;
+  }
+
   html, body {
     margin-top: 0px !important;
   }
@@ -196,6 +201,27 @@ export default {
     border-radius: 5px 5px 5px 5px;
   }
 
+  input[type=password] {
+      background-color: #f6f6f6;
+      border: none;
+      color: #0d0d0d;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 5px;
+      width: 85%;
+      border: 2px solid #f6f6f6;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      -webkit-border-radius: 5px 5px 5px 5px;
+      border-radius: 5px 5px 5px 5px;
+    }
+
   input[type=text]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
@@ -204,6 +230,16 @@ export default {
   input[type=text]:placeholder {
     color: #cccccc;
   }
+
+    input[type=password]:focus {
+      background-color: #fff;
+      border-bottom: 2px solid #5fbae9;
+    }
+
+    input[type=password]:placeholder {
+      color: #cccccc;
+    }
+
 
 
 
