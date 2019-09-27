@@ -34,5 +34,4 @@
                         'Elixir.CityWeb.WorkingTimeView']},
               {registered,[]},
               {vsn,"0.1.0"},
-              {mod,{'Elixir.City.Application',[]}},
-              {extra_applications,[logger,runtime_tools]}]}.
+              {mod,{'Elixir.City.Application',[]}}]}.

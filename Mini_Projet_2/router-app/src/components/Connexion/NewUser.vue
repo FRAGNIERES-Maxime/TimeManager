@@ -42,7 +42,7 @@ export default {
         email: '',
         password: '',
         password_confirmation: '',
-        status: 2
+        status: 0
       },
       errors:null
     }

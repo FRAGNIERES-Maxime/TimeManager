@@ -1,6 +1,7 @@
 <template>
     <div id="adminpage">
         <Users/>
+    
     </div>    
 </template>
 

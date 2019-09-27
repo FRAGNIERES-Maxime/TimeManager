@@ -34,6 +34,11 @@ export default {
     return axios.delete('http://localhost:9050/api/users/'+id, auth.getHeaders())
   
 },
+updateUser(user){
+  return axios.put('http://localhost:9050/api/users/'+user.id, {user:user}, auth.getHeaders())
+
+},
+
 getUser(id) {
     return axios.get('http://localhost:9050/api/user/'+id ,auth.getHeaders())
         
@@ -42,10 +47,16 @@ getClock(id) {
     return axios.get('http://localhost:9050/api/clocks/' +id ,auth.getHeaders())
     
 },
+
 postClock(id) {
     return axios.post('http://localhost:9050/api/clocks/' +id ,{}, auth.getHeaders() )      
 },
+
 getListWork(id) {
     return axios.get('http://localhost:9050/api/workingtimes/' +id ,auth.getHeaders())
-}
+},
+getWorkingtimes(id) {
+  return axios.get('http://localhost:9050/api/workingtimes/' +id ,auth.getHeaders())
+},
+ 
     }

@@ -1,28 +1,66 @@
 <template>
   <div id="chrono">
+
     <div class="timer">
-      <span class="hours">{{ hours }}</span>
-      <span>:</span>
-      <span class="minute">{{ minutes }}</span>
-      <span>:</span>
-      <span class="seconds">{{ seconds }}</span>
+      <span class="seconds">{{ timers }}</span>
     </div>
+
     <div class="controls">
-      <div class="start" v-if="!timer" @click="startTimer " >start
+
+      <div class="start" v-if="!resetButton"  v-on:click="postClock()">start
         <i data-feather="play" ></i>
       </div>
-      <div class="stop" v-if="resetButton" @click="resetTimer">stop
+
+      <div class="stop" v-if="resetButton"  v-on:click="postClock()">stop
         <i data-feather="rotate-cw"></i>
       </div>
+
+    </div><br> 
+
+<label v-if="me.username" > {{username}} </label>
+    
+ 
+  <form>
+        <input type="text" v-model="me.username" id="First_Name" class="fadeIn second" name="login" placeholder="Username">
+        <span v-if="errors" style= "color:red"><p  v-for="(e, index) in errors" :key="index">{{index}}-{{e}}</p></span>
+        <button type="button" class="buttonSign btn-primary btn-lg fadeIn fourth" value="Update user" v-on:click="updateUser()">Update user</button>
+
+      </form><br><br>
+
+
+  <button class="btn-supp"   v-on:click="supprimerCompte()"> supprimer mon compte </button>
+
+
+
+      <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
+      <div class="col-md-5">
+        <apexchart type="pie" :options="optionsPie" :series="seriesPie"></apexchart>
+      </div>
+
+    <div id="charts">
+      <apexchart height="300" type="line" :options="optionsLine" :series="seriesLine"></apexchart>
     </div>
+    <!------------------------------------- https://apexcharts.com/docs/vue-charts/ ------------------------------------------>
+    <div v-for="w in list_work"
+         :key="w.id">
+      {{w}}
+    </div>
+
+
   </div>
 
+  
+
+ 
 </template>
 
 <script> 
 
 import api from '@/api/api';
 import auth from '@/services/auth';
+import login from '@/services/login';
+import moment from 'moment';
+import axios from 'axios';
 
 export default {
 
@@ -31,14 +69,66 @@ export default {
   name: 'Employe',
   data() {
           return {
+    id_user: 0,
     timer: null,
     totalTime: (0 * 60 ),
     resetButton: false,
     title: "working hours",
-    edit: false
-  }
+    edit: false,
+    me: {},
+    timers:"Déco",
+    inter:null,
+    errors:null,
+    username: "",
+    list_work: [],
+
+     /* ------------------------------------ Chart ------------------------------------ */
+                /* --- Pie --- */
+                optionsPie: {
+                    colors: ["#25CC00", "#cccccc"],
+                    labels: ["Time active", "Time inactive"]
+                },
+                seriesPie: [44, 55],
+
+                /* --- Line --- */
+                optionsLine: {
+                    colors: ["#25CC00"],
+                    chart: {
+                        id: 'vuechart',
+                        toolbar: {
+                            show: false
+                        }
+                    },
+
+                    xaxis: {
+                        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+                    }
+                },
+                seriesLine: [{
+                    name: 'series-1',
+                    data: [30, 40, 45, 50, 49, 60, 70, 91]
+                }]
+/* ------------------------------------ Chart ------------------------------------ */
+    
+    }
   },
+     created() {
+        this.me = login.getMe();
+        var interval;
+        interval = setInterval( ()=> {
+          console.log(this.me)
+            if (this.me.id){
+              this.id_user = this.me.id;
+              
+              this.getClock();
+              this.username = this.me.username;
+              clearInterval(interval);
+              this.getWorkingtimes();
+            }
+        }, 2000)
+        },
   methods: {
+
     startTimer: function() {
       this.timer = setInterval(() => this.count(), 1000); //1000ms = 1 second
       this.resetButton = true;
@@ -59,10 +149,74 @@ export default {
     count: function() {
       this.totalTime++;
     },
-     postClock(){
-        //  api.postClock()
+    
+     getClock(){
+          api.getClock(this.id_user)
+           .then(res => {
+            console.log(res)
+            if (res.data.data){
+              this.inter = setInterval(() => this.timers = moment(moment().diff(res.data.data.clock)).subtract(1, "hour").format("HH:mm:ss"), 1000);
+              this.resetButton = true;
+            }
+           else{
+              this.timers = "déco"
+                            this.resetButton = false;
 
+              clearInterval(this.inter);
+            }
+                    })
+           .catch(err => {
+              console.log(err)
+           })
       },
+    
+
+     postClock(){
+          api.postClock(this.id_user)
+           .then(res => {
+            console.log(res);
+            this.getClock();        
+                    })
+           .catch(err => {
+              console.log(err)
+           })
+      },
+    supprimerCompte(){
+     api.deleteUser(this.id_user)
+     .then(result => {
+       login.logOut();
+     })
+},  
+  updateUser(){
+    this.me.password = "123456789"
+      this.me.password_confirmation = "123456789"
+
+  console.log(this.me)
+    api.updateUser(this.me)
+    .then(result=> {
+          Object.assign(this.me, result.data);
+      this.$nextTick(() => console.log(this.me))
+      this.username = this.me.username;
+      console.log(this.me)
+        //login.getLogin()
+    })
+
+    },
+    getWorkingtimes(){
+      api.getWorkingtimes(this.id_user)
+      .then(result => {
+         let test = result.data.data
+        let timers = []
+    
+        test.forEach( (w) => {
+           timers.push(moment(moment(w.end).diff(w.start)).format("HH:mm:ss"))
+      //    console.log(timers)
+         });
+       //console.log(moment().add(7, 'days'));
+        console.table(timers)
+      })
+    } 
+
   },
   computed: {
     hours: function(){
@@ -91,6 +245,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+ 
 
 .theme--light.v-card {
     margin-top: 10%;
@@ -102,11 +257,16 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-bottom: 2rem;
-   
+     
   }
+
   .timer {
     font-size:3rem;
     color: black;
+      padding-top: 10%;
+      width: 50%;
+  margin: 0 auto;
+
   }
   .controls {
     display: flex;
