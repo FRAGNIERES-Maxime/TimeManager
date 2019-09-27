@@ -3,7 +3,7 @@ use Mix.Config
 # Configure your database
 config :gotham, City.Repo,
   username: "postgres",
-  password: "root",
+  password: "postgres",
   database: "projetapi",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
