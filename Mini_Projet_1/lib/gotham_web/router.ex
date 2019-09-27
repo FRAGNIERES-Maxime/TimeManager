@@ -19,7 +19,7 @@ defmodule CityWeb.Router do
 
   scope "/api", CityWeb do
     pipe_through [:api, :jwt_authenticated]
-    resources "/users", UserController, only: [:create, :show, :index, :delete]
+    resources "/users", UserController, only: [:create, :show, :index, :delete, :update]
     resources "/workingtimes", WorkingTimeController, except: [:new, :edit, :show]
     options   "/users", UserController, :options
     get "/user/:id", UserController, :auth
