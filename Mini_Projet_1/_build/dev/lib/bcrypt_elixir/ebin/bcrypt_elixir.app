@@ -5,4 +5,5 @@
                         'Elixir.Bcrypt.Base64','Elixir.Bcrypt.Stats',
                         'Elixir.Bcrypt.Tools']},
               {registered,[]},
-              {vsn,"0.12.1"}]}.
+              {vsn,"0.12.1"},
+              {extra_applications,[logger,crypto]}]}.

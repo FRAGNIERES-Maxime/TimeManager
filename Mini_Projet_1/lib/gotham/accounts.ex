@@ -10,6 +10,7 @@ defmodule City.Accounts do
   alias City.Repo
   alias City.Accounts.User
   alias City.Accounts.Tmp
+  alias City.Timer.WorkingTime
   alias City.Guardian
 
   @doc """
@@ -108,6 +109,8 @@ defmodule City.Accounts do
 
   """
   def delete_user(%User{} = user) do
+    from(w in WorkingTime, where: w.user_id==^user.id)
+    |>  Repo.delete_all()
     Repo.delete(user)
   end
 

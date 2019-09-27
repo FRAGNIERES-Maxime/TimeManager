@@ -32,5 +32,6 @@
                         'Elixir.Mix.Tasks.Ecto.Rollback']},
               {registered,[]},
               {vsn,"3.2.0"},
+              {extra_applications,[logger]},
               {env,[{postgres_map_type,<<"jsonb">>}]},
               {mod,{'Elixir.Ecto.Adapters.SQL.Application',[]}}]}.

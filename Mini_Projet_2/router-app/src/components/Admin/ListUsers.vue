@@ -2,12 +2,21 @@
     <div id='users' class="container">
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
-        <div class="col-sm-6 col-lg-4" v-for="u in list_user"
+        <div>
+        <h1 v-if="!bModeTeam">List employer</h1>
+        <h1 v-if="bModeTeam">List Manager/teams</h1>
+        <input type="text" placeholder="Recherche" v-model="query">
+        <span v-on:click="bModeTeam=!bModeTeam"> toggle</span>
+        </div>
+        <br>
+        <div v-if="filtreList().length == 0">Pas d'utilisateur : {{query}}</div>
+
+        <div class="col-sm-6 col-lg-4" v-for="u in filtreList()"
              :key="u.id"
-             >
+             v-show="filtreList().length">
           <div  class="brand-card" v-on:click="navigate(u.id)">
             <div class="brand-card-header bg-success">
-              <h3>00:00:00</h3>
+              <h3>{{timer(u.id)}}</h3>
             </div>
             <div class="brand-card-body">
               <div>
@@ -19,6 +28,7 @@
                 <div class="text-uppercase text-muted small">{{u.email}}</div>
               </div>
             </div>
+            <div v-on:click='deleteUser(u.id)'><img src="../../assets/delete.png"></div>
           </div>
         </div>
       </div>
@@ -48,7 +58,7 @@ import axios from 'axios';
 import router from '../../router/';
 import api from '@/api/api';
 import auth from '@/services/auth';
-
+import moment from 'moment';
 
 export default {
   name: 'Users',
@@ -61,7 +71,11 @@ export default {
             username: "",
             email:""
       },
-      error: ""
+      error: "",
+      bModeTeam: false,
+      query:"",
+      intervals: [],
+      timers:[]
     }
   },
    watch: {
@@ -78,8 +92,20 @@ export default {
           .then(result => {
                 this.list_user = result.data.data;
                 console.log(result);
+                this.list_user.forEach(u => this.timers[u.id] = "déco")
+                this.getClocks();
           })
 
+      },
+      filtreList(){
+        if (this.list_user != "lala")
+          return this.list_user.filter(user => {
+            if (this.bModeTeam == true)  
+              return user.status == 1 && user.username.toLowerCase().includes(this.query.toLowerCase())
+            return user.username.toLowerCase().includes(this.query.toLowerCase()); 
+          });
+        else
+          return "lala"
       },
       createUser(){
           axios.post('http://localhost:9050/api/users', {user: this.new_user},  {crossOrigine: true})
@@ -94,14 +120,29 @@ export default {
       },
       deleteUser(id, event){
           if (event) event.preventDefault()
-          axios.delete('http://localhost:9050/api/users/'+id ,  {crossOrigine: true})
-          .then(result => {
-                this.list_user = result.data.data;
-                this.getAllUsers()
-          })
+          api.deleteUser(id).then( () => {
+          this.getAllUsers();
+        });
+      },
+
+      getClocks(){
+        this.list_user.forEach(user => {
+          api.getClock(user.id)
+          .then((res) => {
+            console.log(res)
+            if (res.data.data){
+              this.timers[user.id] = "co"
+            }else {
+              this.timers[user.id] = 'déco'
+            }
+          });
+        });
+      },
+      timer(id){
+        return this.timers[id];
       },
       navigate(id){
-          router.push({name: "user", params: {id: id}})
+          //router.push({name: "user", params: {id: id}})
       }
   }
 }

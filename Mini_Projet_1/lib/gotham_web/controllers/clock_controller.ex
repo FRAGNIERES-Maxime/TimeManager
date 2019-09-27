@@ -35,6 +35,7 @@ defmodule CityWeb.ClockController do
 
   def createOrDelete(conn, id) do
 
+    login = Guardian.Plug.current_resource(conn)
     clock = Cloakeur.createOrDelete(id)
     send_resp(conn, :no_content, "")
   end

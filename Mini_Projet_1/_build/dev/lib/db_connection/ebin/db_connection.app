@@ -1,6 +1,5 @@
 {application,db_connection,
-             [{applications,[kernel,stdlib,elixir,logger,connection]},
-              {description,"Database connection behaviour for database transactions and connection pooling\n"},
+             [{description,"Database connection behaviour for database transactions and connection pooling\n"},
               {modules,['Elixir.DBConnection','Elixir.DBConnection.App',
                         'Elixir.DBConnection.Backoff',
                         'Elixir.DBConnection.Connection',
@@ -24,4 +23,5 @@
                         'Elixir.Enumerable.DBConnection.Stream']},
               {registered,[]},
               {vsn,"2.1.1"},
+              {applications,[kernel,stdlib,elixir,logger,connection]},
               {mod,{'Elixir.DBConnection.App',[]}}]}.

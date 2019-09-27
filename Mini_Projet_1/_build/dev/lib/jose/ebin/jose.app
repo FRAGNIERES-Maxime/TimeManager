@@ -1,7 +1,5 @@
 {application,jose,
-             [{applications,[kernel,stdlib,elixir,crypto,asn1,public_key,
-                             base64url]},
-              {description,"JSON Object Signing and Encryption (JOSE) for Erlang and Elixir."},
+             [{description,"JSON Object Signing and Encryption (JOSE) for Erlang and Elixir."},
               {modules,['Elixir.JOSE','Elixir.JOSE.JWA','Elixir.JOSE.JWE',
                         'Elixir.JOSE.JWK','Elixir.JOSE.JWS','Elixir.JOSE.JWT',
                         'Elixir.JOSE.Poison',
@@ -63,4 +61,6 @@
                         jose_sha3_unsupported,jose_sup]},
               {registered,[]},
               {vsn,"1.9.0"},
-              {mod,{jose_app,[]}}]}.
+              {mod,{jose_app,[]}},
+              {applications,[kernel,stdlib,elixir,crypto,asn1,public_key,
+                             base64url]}]}.

@@ -30,13 +30,9 @@ export default {
    },
 
 
-  deleteUser(id, event){
-    if (event) event.preventDefault()
-    axios.delete('http://localhost:9050/api/users/'+id, auth.getHeaders())
-    .then(result => {
-          this.list_user = result.data.data;
-          this.getAllUsers()
-    })
+  deleteUser(id){
+    return axios.delete('http://localhost:9050/api/users/'+id, auth.getHeaders())
+  
 },
 getUser(id) {
     return axios.get('http://localhost:9050/api/user/'+id ,auth.getHeaders())
@@ -47,7 +43,7 @@ getClock(id) {
     
 },
 postClock(id) {
-    return axios.post('http://localhost:9050/api/clocks/' +id ,auth.getHeaders() )      
+    return axios.post('http://localhost:9050/api/clocks/' +id ,{}, auth.getHeaders() )      
 },
 getListWork(id) {
     return axios.get('http://localhost:9050/api/workingtimes/' +id ,auth.getHeaders())

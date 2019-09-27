@@ -14,4 +14,5 @@
               {registered,[]},
               {vsn,"4.0.0"},
               {mod,{'Elixir.Phoenix.Ecto',[]}},
+              {extra_applications,[logger]},
               {env,[{exclude_ecto_exceptions_from_plug,[]}]}]}.

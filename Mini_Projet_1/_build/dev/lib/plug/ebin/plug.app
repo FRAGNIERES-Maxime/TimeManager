@@ -45,5 +45,6 @@
                         plug_multipart]},
               {registered,[]},
               {vsn,"1.8.3"},
+              {extra_applications,[logger]},
               {mod,{'Elixir.Plug',[]}},
               {env,[{validate_header_keys_during_test,true}]}]}.
