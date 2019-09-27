@@ -1,7 +1,6 @@
 <template>
-  <div id='user' class="container">
+  <div id='User' class="container">
     <div>
-      <router-link id="btn-back" class="btn btn-dark" :to="{ name: 'users' }">Back to Users List</router-link>
     </div>
     <div class="row">
       <div id="identity" class="col-md-6">
@@ -57,6 +56,9 @@
 
     export default {
         name: 'User',
+        props:{
+          test: 0,
+        },
         data() {
             return {
                 msg: 'coucou',
@@ -99,8 +101,12 @@
         },
         watch: {},
         created() {
-            this.id_user = this.$router.currentRoute.params.id;
-            console.log(this.id_user);
+          
+            if (this.test ==0)
+              this.id_user = this.$router.currentRoute.params.id;
+            else
+              this.id_user = this.test;
+          console.log(this.id_user);
             this.getUser();
         },
         methods: {

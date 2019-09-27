@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="App">
     <!--Header-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
@@ -37,7 +37,6 @@
 
     export default {
         name: 'App',
-        name: 'Users',
         data() {
             return {
                 msg: 'Loaad',
