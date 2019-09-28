@@ -12,10 +12,7 @@
         <div class="col-sm-6 col-lg-4" v-for="u in filtreList()"
              :key="u.id"
              v-show="filtreList().length">
-          <div  class="brand-card" v-on:click="navigate(u.id)">
-            <div class="brand-card-header bg-success">
-              <h3>{{timer(u.id)}}</h3>
-            </div>
+          <div  class="brand-card" >
             <div class="brand-card-body">
               <div>
                 <div class="text-value">Name:</div>
@@ -26,7 +23,24 @@
                 <div class="text-uppercase text-muted small">{{u.email}}</div>
               </div>
             </div>
-            <div v-on:click='deleteUser(u.id)'><img src="../../assets/delete.png"></div>
+            <div v-on:click='ejectFromTeam(u.id)'>ritiri</div>
+          </div>
+        </div>
+         <div class="col-sm-6 col-lg-4" v-for="u in extractUser()"
+             :key="u.a"
+             v-show="extractUser().length">
+          <div  class="brand-card" >
+            <div class="brand-card-body">
+              <div>
+                <div class="text-value">Name:</div>
+                <div class="text-uppercase text-muted small">{{u.username}}</div>
+              </div>
+              <div>
+                <div class="text-value">Email:</div>
+                <div class="text-uppercase text-muted small">{{u.email}}</div>
+              </div>
+            </div>
+            <div v-on:click='addFromTeam(u.id)'>ajouti</div>
           </div>
         </div>
       </div>
@@ -76,27 +90,47 @@ export default {
       error: "",
       bModeTeam: false,
       query:"",
+      listUserNotInTeam:"lala",
       intervals: [],
-      timers:[]
+      timers:[],
+      associations: null
     }
   },
     //created : component charged, run functions
     created() {
         if (this.selector == 0){
-            // setInterval
+          this.me = login.getMe();
+            var interval;
+            interval = setInterval(() => {
+                console.log(this.me)
+                if (this.me.id) {
+                    this.id_user = this.me.id;
+                    this.manager_id = this.me.id;
+                    clearInterval(interval);
+                }
+            }, 2000);
         } else{
-            this.manager_id = this.selector;
-            this.getAllUsersByManager()
+            this.manager_id = this.selector < 0 ? this.selector * -1 : this.selector;
+            this.infoRefresh();
         }
     },
   methods: {
+
+    infoRefresh(){
+      this.getAllUsersByManager();
+      this.getAllUsers();
+      this.getAss();
+    },
+    getAllUsers(){
+      api.getAllUsers().then( res => {
+        this.listUserNotInTeam = res.data.data;
+
+      });
+    },
       getAllUsersByManager(){
         axios.get("http://localhost:9050/api/userbymanager/"+this.manager_id, auth.getHeaders())
           .then(result => {
                 this.list_user = result.data.data;
-                console.log(result);
-                this.list_user.forEach(u => this.timers[u.id] = "déco")
-                this.getClocks();
           })
 
       },
@@ -109,6 +143,29 @@ export default {
           });
         else
           return "lala"
+      },
+      extractUser(){
+        if (this.listUserNotInTeam != "lala" && this.list_user != "lala")
+        {
+
+          let dif = [];
+          
+          this.listUserNotInTeam.forEach(u => {
+            let contain = false;
+            this.list_user.forEach(x => {
+              if (x.id == u.id){
+                contain = true;
+                console.log(x.id + " " + u.id)
+              }
+            })
+            if (contain == false)
+                dif.push(u)
+          })
+
+          return dif
+        }
+
+        else return "lala"
       },
       createUser(){
           axios.post('http://localhost:9050/api/users', {user: this.new_user},  {crossOrigine: true})
@@ -125,6 +182,11 @@ export default {
           if (event) event.preventDefault()
           api.deleteUser(id).then( () => {
           this.getAllUsers();
+        });
+      },
+      getAss(){
+        axios.get("http://localhost:9050/api/ass", auth.getHeaders()).then(res =>{
+            this.associations = res.data.data;
         });
       },
 
@@ -147,6 +209,33 @@ export default {
       navigate(id){
         this.$emit('childToParent',id);
           //router.push({name: "user", params: {id: id}})
+      },
+      addFromTeam(id){
+        console.log(this.manager_id)
+        let ass= {
+          "id_user": id,
+          "id_manager": this.manager_id
+        }
+        console.log(ass)  
+        axios.post("http://localhost:9050/api/ass",{ association : ass}, auth.getHeaders())
+        .then( (res) => {
+            this.infoRefresh();
+        })
+      },
+      ejectFromTeam(id){
+          let asso = null;
+
+          this.associations.forEach( ass => {
+            console.log(ass.id_manager + " " + ass.id_user)
+            console.log(this.manager_id + " " + id);
+            if (ass.id_manager == this.manager_id && ass.id_user == id){
+              console.log(ass);
+              asso = ass;
+            }
+          });
+  
+        axios.delete("http://localhost:9050/api/ass/" + asso.id, auth.getHeaders())
+        .then(() => this.infoRefresh())
       }
   }
 }

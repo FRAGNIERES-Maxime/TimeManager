@@ -14,10 +14,10 @@
             <input :placeholder=user.email>
           </div>
           <div class="form-group">
-            <select>
-              <option>Manager</option>
-              <option>Admin</option>
-              <option>Employer</option>
+            <select v-model="user.status">
+              <option value=1>Manager</option>
+              <option value=2>Admin</option>
+              <option value=0>Employer</option>
             </select>
           </div>
           <div class="form-group">
@@ -26,7 +26,7 @@
             </select>
           </div>
           <div class="form-group">
-            <button id="submit" class="btn btn-dark" type="submit">Submit</button>
+            <button id="submit" class="btn btn-dark" type="button" @click="updateUser()">Submit</button>
           </div>
         </form>
       </div>
@@ -142,7 +142,21 @@
                     .then(res => {
                         this.list_work = res.data.data;
                     })
-            }
+            },
+             updateUser(){
+
+                this.user.password = "123456789"
+                  this.user.password_confirmation = "123456789"
+                  console.log(this.user);
+
+                api.updateUser(this.user)
+                .then(result=> {
+                  this.username = this.result.data;
+                  console.log(this.me)
+                    //login.getLogin()
+                })
+                
+             }
 
         }
     }

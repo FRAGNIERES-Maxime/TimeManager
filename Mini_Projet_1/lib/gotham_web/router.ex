@@ -30,7 +30,7 @@ defmodule CityWeb.Router do
     post "/clocks/:id", ClockController, :createOrDelete
     get "/clocks/:id", ClockController, :show
     get "/me", UserController, :show
-    resources "/ass", AssociationController, only: [:create, :update, :delete]
+    resources "/ass", AssociationController, only: [:show, :create, :update, :delete, :index]
   end
 
 
