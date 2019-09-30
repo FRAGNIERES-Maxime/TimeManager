@@ -85,7 +85,7 @@
                 title: "working hours",
                 edit: false,
                 me: {},
-                timers: "Déco",
+                timers: "Report your time",
                 inter: null,
                 errors: null,
                 username: "",
@@ -110,7 +110,7 @@
                     },
 
                     xaxis: {
-                        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+                        categories: [1,2,3,4,5,6,8,9],
                     }
                 },
                 seriesLine: [{
@@ -167,7 +167,7 @@
                             this.inter = setInterval(() => this.timers = moment(moment().diff(res.data.data.clock)).subtract(1, "hour").format("HH:mm:ss"), 1000);
                             this.resetButton = true;
                         } else {
-                            this.timers = "déco"
+                            this.timers = "Report your time"
                             this.resetButton = false;
 
                             clearInterval(this.inter);

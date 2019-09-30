@@ -7,6 +7,8 @@ import NewUser from '@/components/Connexion/NewUser'
 import HelloWorld from '@/components/HelloWorld'
 import Employe from '@/components/Employe/Employe'
 import Admin from '@/components/Admin/Admin'
+import Manager from '@/components/Managers/Manager'
+
 
 Vue.use(Router)
 
@@ -42,6 +44,11 @@ export default new Router({
       path: '/Employe',
       name: "employe",
       component: Employe
+    },
+    {
+      path: '/Manager',
+      name: "manager",
+      component: Manager
     },
   ]
 })

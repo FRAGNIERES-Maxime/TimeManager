@@ -71,6 +71,8 @@ import router from '../../router/';
 import api from '@/api/api';
 import auth from '@/services/auth';
 import moment from 'moment';
+import login from '@/services/login';
+
 
 export default {
   name: 'Manager',
@@ -98,26 +100,32 @@ export default {
   },
     //created : component charged, run functions
     created() {
-        if (this.selector == 0){
+        if (!this.selector){
           this.me = login.getMe();
             var interval;
             interval = setInterval(() => {
-                console.log(this.me)
                 if (this.me.id) {
                     this.id_user = this.me.id;
                     this.manager_id = this.me.id;
                     clearInterval(interval);
+                    this.infoRefresh();
+
                 }
             }, 2000);
         } else{
             this.manager_id = this.selector < 0 ? this.selector * -1 : this.selector;
+            
+            this.me =login.getMe()
             this.infoRefresh();
+            console.log(this.me)
         }
     },
   methods: {
 
     infoRefresh(){
-      this.getAllUsersByManager();
+
+      if(this.me.status == 2 )
+        this.getAllUsersByManager();
       this.getAllUsers();
       this.getAss();
     },
@@ -125,24 +133,28 @@ export default {
       api.getAllUsers().then( res => {
         this.listUserNotInTeam = res.data.data;
 
+        console.log(this.listUserNotInTeam)
       });
     },
       getAllUsersByManager(){
         axios.get("http://localhost:9050/api/userbymanager/"+this.manager_id, auth.getHeaders())
           .then(result => {
+            console.log(result.data)
                 this.list_user = result.data.data;
           })
 
       },
       filtreList(){
-        if (this.list_user != "lala")
+        if (this.list_user != "lala"){
           return this.list_user.filter(user => {
             if (this.bModeTeam == true)  
               return user.status == 1 && user.username.toLowerCase().includes(this.query.toLowerCase())
             return user.username.toLowerCase().includes(this.query.toLowerCase()); 
           });
+        }
+       
         else
-          return "lala"
+          return 0
       },
       extractUser(){
         if (this.listUserNotInTeam != "lala" && this.list_user != "lala")
@@ -163,9 +175,16 @@ export default {
           })
 
           return dif
-        }
+        }else if(this.listUserNotInTeam != "lala" && this.me.status == 1) {
 
-        else return "lala"
+          return this.listUserNotInTeam.filter(user => {
+            return user.username.toLowerCase().includes(this.query.toLowerCase());  
+          });
+        
+      }
+  
+
+        else return 0
       },
       createUser(){
           axios.post('http://localhost:9050/api/users', {user: this.new_user},  {crossOrigine: true})
