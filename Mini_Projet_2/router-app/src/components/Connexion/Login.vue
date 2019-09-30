@@ -19,16 +19,9 @@
             <button type="button" class="buttonSign btn btn-primary btn-lg fadeIn fourth" value="Sign up" v-on:click="signup()">Sign up</button>
           </li>
         </ul>
-
-        <!--<input type="submit" class="fadeIn fourth" value="Log In">-->
       </form>
+      <!-- Login Form -->
 
-      <!-- Remind Password -->
-      <!--
-      <div id="formFooter">
-        <a class="underlineHover" href="#">Forgot Password?</a>
-      </div>
-      -->
     </div>
   </div>
 </template>
@@ -115,7 +108,6 @@
     width: 90%;
     max-width: 450px;
     position: relative;
-    padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
     text-align: center;

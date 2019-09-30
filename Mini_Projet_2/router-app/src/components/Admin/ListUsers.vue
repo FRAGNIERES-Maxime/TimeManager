@@ -2,15 +2,13 @@
     <div id='users' class="container">
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
       <div class="row">
-        <div>
-        <h1 v-if="!bModeTeam">List employer</h1>
-        <h1 v-if="bModeTeam">List Manager/teams</h1>
-        <input type="text" placeholder="Recherche" v-model="query">
-        <span v-on:click="bModeTeam=!bModeTeam"> toggle</span>
+        <div class="brand-card bg-secondary col-sm-6 col-lg-4" style="padding: 5px;">
+          <h1 class="brand-card-header bg-secondary" v-if="!bModeTeam">List employer</h1>
+          <h1 class="brand-card-header bg-secondary" v-if="bModeTeam">List Manager/teams</h1>
+          <input style="width: 100%; margin: 0; margin-top: 5px; margin-bottom: 5px;" type="text" placeholder="Recherche" v-model="query">
+          <button style="margin: 5px;" class="btn btn-light" v-on:click="bModeTeam=!bModeTeam">Toggle</button>
         </div>
-        <br>
         <div v-if="filtreList().length == 0">Pas d'utilisateur : {{query}}</div>
-
         <div class="col-sm-6 col-lg-4" v-for="u in filtreList()"
              :key="u.id"
              v-show="filtreList().length">
@@ -33,23 +31,6 @@
         </div>
       </div>
       <!-- Site: COREUI.IO ------------------------------------------------------------------------------------->
-
-        <!--<div v-if="!list_user || !list_user.length">No User</div>
-        <div>
-            <h3>Create a user</h3>
-            <input type="text" placeholder="Username" v-model="new_user.username">
-            <br>
-            <input type="email" placeholder="Email" v-model="new_user.email">
-            <br>
-            <div style="color:red" v-if="error">
-                <span v-for="(value, key) in error"
-                :key="key">
-                {{key}} {{value}}
-                <br>
-                </span>
-            </div>
-            <button v-on:click="createUser()">submit</button>
-        </div>-->
     </div>
 </template>
 
@@ -62,7 +43,7 @@ import moment from 'moment';
 
 export default {
   name: 'Users',
-  props:{   
+  props:{
         selector: Object
     },
   data () {
@@ -103,9 +84,9 @@ export default {
       filtreList(){
         if (this.list_user != "lala")
           return this.list_user.filter(user => {
-            if (this.bModeTeam == true)  
+            if (this.bModeTeam == true)
               return user.status == 1 && user.username.toLowerCase().includes(this.query.toLowerCase())
-            return user.username.toLowerCase().includes(this.query.toLowerCase()); 
+            return user.username.toLowerCase().includes(this.query.toLowerCase());
           });
         else
           return "lala"
@@ -155,6 +136,12 @@ export default {
 </script>
 
 <style>
+  input {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
   #users {
     Margin-top: 3%;
   }
